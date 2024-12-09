@@ -11,6 +11,6 @@ class Arco extends Herramienta {
     public void usar(Personaje personaje) {
 
         System.out.println(personaje.getNombre()+" equipa un arco, el ataque ha aumentado 3!!!" );
-        System.out.println(personaje.getNombre()+" hace " + personaje.makeDamage(bonus) +"daño" );
+        System.out.println(personaje.getNombre() + " hace " + personaje.makeDamage(bonus) + " daño ");
     }
 }
