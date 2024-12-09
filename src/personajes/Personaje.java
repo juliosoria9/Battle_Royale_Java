@@ -18,7 +18,7 @@ public abstract class Personaje {
 	//funciones de daño (enemy aplica a cualquier ente del bando contrario)
 	public int makeDamage(int enemyVida)
 	{
-		//enemyVida -= arma.getDamage(); //falta hacer los metodos de arma
+		//enemyVida -= Herramienta.getDamage(); //falta hacer los metodos de arma
 		return enemyVida;
 	}
 	
