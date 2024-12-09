@@ -1,14 +1,14 @@
 package personajes;
 
-import Herramienta.Arma;
+import Herramienta.Herramienta;
 
 public abstract class Personaje {
 
 	protected int vida = 0;
-	protected Arma arma;
+	protected Herramienta arma;
 	protected String nombre;
 	
-	public Personaje (int vida, Arma arma, String nombre)
+	public Personaje (int vida, Herramienta arma, String nombre)
 	{
 		this.vida = vida;
 		this.arma = arma;
