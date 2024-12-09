@@ -1,6 +1,6 @@
 package personajes;
 
-import armas.Arma;
+import Herramienta.Arma;
 
 public abstract class Personaje {
 

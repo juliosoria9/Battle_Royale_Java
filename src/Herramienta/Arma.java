@@ -1,4 +1,4 @@
-package armas;
+package Herramienta;
 
 public class Arma {
  
