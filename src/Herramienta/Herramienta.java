@@ -2,7 +2,7 @@ package Herramienta;
 
 import personajes.Personaje;
 
-abstract class Herramienta {
+ public abstract class Herramienta {
     protected String nombre;
     protected int bonus;
 
