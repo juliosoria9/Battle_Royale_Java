@@ -1,10 +1,10 @@
 package personajes;
 
-import armas.Arma;
+import Herramienta.Herramienta;
 
 public class Jugador extends Personaje {
 
-	public Jugador(int vida, Arma arma, String nombre)
+	public Jugador(int vida, Herramienta arma, String nombre)
 	{
 		super(vida, arma, nombre);
 	}
