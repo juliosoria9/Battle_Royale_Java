@@ -28,5 +28,5 @@ public class CreaEnemigos{
 	private Enemigo crearEnemigoDificil()
 	{
 		return Enemigo(10, arma,"enemigoDificil");
-	}
+	}*/
 }
