@@ -1,6 +1,7 @@
 package personajes;
 
 import Herramienta.Herramienta;
+import partida.Tablero;
 
 public abstract class Personaje {
 
