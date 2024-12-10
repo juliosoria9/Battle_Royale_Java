@@ -3,7 +3,7 @@ package Herramienta;
 import personajes.Personaje;
 
 class Arco extends Herramienta {
-    public Arco() {
+    public Arco(String string, int i) {
         super("Arco", 3);
     }
 

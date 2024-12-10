@@ -2,7 +2,7 @@ package Herramienta;
 
 import personajes.Personaje;
 class Varita extends Herramienta {
-    public Varita() {
+    public Varita(String string, int i) {
         super("Varita", 7);
     }
 

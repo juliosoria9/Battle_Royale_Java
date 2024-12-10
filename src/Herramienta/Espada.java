@@ -3,7 +3,7 @@ package Herramienta;
 import personajes.Personaje;
 
 class Espada extends Herramienta {
-    public Espada() {
+    public Espada(String string, int i) {
         super("Espada", 5);
     }
 
