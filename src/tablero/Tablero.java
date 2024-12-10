@@ -15,7 +15,7 @@ public class Tablero {
         if (fila >= 0 && fila < tablero.length && columna >= 0 && columna < tablero[0].length) {
             tablero[fila][columna] = valor;
         } else {
-            System.out.println("Índice fuera de rango.");
+            System.out.println("Indice fuera de rango.");
         }
     }
 
@@ -39,3 +39,4 @@ public class Tablero {
         }
     }
 }
+
