@@ -15,12 +15,14 @@ public abstract class Personaje {
 		this.nombre = nombre;
 	}
 	
-	//funciones de daño (enemy aplica a cualquier ente del bando contrario)
-	public int makeDamage(int enemyVida)
-	{
-		//enemyVida -= Herramienta.getDamage(); //falta hacer los metodos de arma
-		return enemyVida;
-	}
+	 public int makeDamage(int enemyVida) {
+	        //aplica  el daño usando el bonus de la herramienta equipada
+	        if (arma != null) {
+	            //reduce la vida del enemigo
+	            enemyVida -= arma.getDamage();
+	        }
+	        return enemyVida;
+	    }
 	
 	public void takeDamage(int enemyDamage) 
 	{
@@ -37,4 +39,16 @@ public abstract class Personaje {
 	{
 		return nombre;
 	}
+	
+	 public void setArma(Herramienta arma) {
+	        return;
+	 }
+	 
+	 public void usarArma() {
+	        if (arma != null) {
+	            arma.usar();
+	        } else {
+	            System.out.println("no se ha equipado un arma");
+	        }
+	    }
 }
