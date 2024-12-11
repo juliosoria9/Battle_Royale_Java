@@ -1,18 +1,24 @@
 package personajes;
 
 import Herramienta.Herramienta;
+import partida.Tablero;
 
 public abstract class Personaje {
 
 	protected int vida = 0;
 	protected Herramienta arma;
 	protected String nombre;
+	protected int x = 0;
+	protected int y = 0;
 	
-	public Personaje (int vida, Herramienta arma, String nombre)
+	
+	public Personaje (int vida, Herramienta arma, String nombre, int x, int y)
 	{
 		this.vida = vida;
 		this.arma = arma;
 		this.nombre = nombre;
+		this.x = x;
+		this.y = y;
 	}
 	
 	 public int makeDamage(int enemyVida) {
