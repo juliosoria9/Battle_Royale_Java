@@ -1,4 +1,5 @@
 package main;
+import package personajes;
 
 public class Main {
 
