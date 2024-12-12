@@ -1,13 +1,10 @@
 package personajes;
 
-import java.util.Random;
 import partida.Tablero;
 
 public class CreaEnemigos{
-	
-	private Random random = new Random();
 
-	public Enemigo crearEnemigo(String dificultad, Tablero tablero)
+	public Enemigo creaEnemigos (String dificultad, Tablero tablero)
 	{
 		if(dificultad == "facil")
 		{
@@ -27,7 +24,6 @@ public class CreaEnemigos{
 		int vida=50;
 		int arma=1;
 		
-		
 		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoFacil", 0, 0, tablero);
 	}
 
@@ -43,7 +39,6 @@ public class CreaEnemigos{
 	{
 		int vida =100;
 		int arma=3;
-		
 		
 		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoDificil", 0, 0, tablero);
 	}
