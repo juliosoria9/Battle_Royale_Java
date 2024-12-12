@@ -10,17 +10,15 @@ public abstract class Personaje {
 	protected String nombre;
 	protected int x = 0;
 	protected int y = 0;
-	protected Tablero tablero;
 	
 	
-	public Personaje (int vida, Herramienta arma, String nombre, int x, int y, Tablero tablero)
+	public Personaje (int vida, Herramienta arma, String nombre, int x, int y)
 	{
 		this.vida = vida;
 		this.arma = arma;
 		this.nombre = nombre;
 		this.x = x;
 		this.y = y;
-		this.tablero = tablero;
 	}
 	
 	 public int makeDamage(int enemyVida) {
@@ -36,7 +34,10 @@ public abstract class Personaje {
 	public void takeDamage(int enemyDamage) 
 	{
 		vida -= enemyDamage;
-		CheckDeath();
+		if(vida < 0)
+		{
+			Die();
+		}
 	}
 	
 	public void CheckDeath()
@@ -49,7 +50,7 @@ public abstract class Personaje {
 	
 	public void Die()
 	{
-		tablero.asignarValor(x, y, 0);
+		//tablero.setValorPos(0); //poner metodo de cambiar valores en tablero
 		System.out.println("El jugador " + nombre + " ha muerto");	
 	}
 	
@@ -85,26 +86,15 @@ public abstract class Personaje {
 	}
 	
 	//Metodos para arma
-	 public static Herramienta setArma(String tipo) {
+	 public static void setArma(String tipo) {
 		 //hacer condiciones para un arma segun tipo de player   
 		 //return armaSet;
 	 }
 	 
-	 public static Herramienta setArma(int tipo)
+	 public static void setArma(int tipo)
 	 {
-		 //hacer condiciones para un arma segun tipo de enemy   
-		 //return armaSet; 
-	 }
-	 
-	 public Herramienta resetArma() {
 		 //hacer condiciones para un arma segun tipo de player   
-		 //return armaSet;
-	 }
-	 
-	 public Herramienta resetArma()
-	 {
-		 //hacer condiciones para un arma segun tipo de enemy   
-		 //return armaSet; 
+		 
 	 }
 	 
 	 public void usarArma() {
