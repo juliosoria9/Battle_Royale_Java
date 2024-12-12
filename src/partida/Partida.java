@@ -27,11 +27,9 @@ public class Partida {
 		Jugador jugadores[] = new Jugador[num];
 		Enemigo enemigos[] = new Enemigo[num];
 		
-		CreaEnemigos creadorEnemy = new CreaEnemigos(dificultad, tablero);
-		
 		for(int i = 0; i < num; i++)
 		{
-			enemigos[i] = 
+			enemigos[i].creaEnemigos(dificultad, tablero);
 		}
 	}
 }
