@@ -35,9 +35,9 @@ public class Tablero {
     
     
     // construir de una cantidad especifica de filas y columna
-    public Tablero(int filas, int columnas,int []array_jugadores) {
+    public Tablero(int filas, int columnas) {
         tablero = new int[filas][columnas];
-        personajes = array_jugadores;
+        
     }
 
     // cambiar valor en una posicion especifica
@@ -67,5 +67,10 @@ public class Tablero {
             }
             System.out.println();
         }
+    }
+    
+    
+    public void setarraypersonajes(personaje []array_jugadores) {
+    	personajes = array_jugadores;
     }
 }
