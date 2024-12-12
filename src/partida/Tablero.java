@@ -4,7 +4,7 @@ import personajes.*;
 
 public class Tablero {
 	private int[][] tablero;
-    private int[] personajes;
+    private Personaje[] personajes;
 
     //inicializar la partida
     // el tamaño del tablero tiene que ser 9 veces mas grandes que el de los jugadores de forma
@@ -70,7 +70,7 @@ public class Tablero {
     }
     
     
-    public void setarraypersonajes(personaje []array_jugadores) {
+    public void setarraypersonajes(Personaje []array_jugadores) {
     	personajes = array_jugadores;
     }
 }
