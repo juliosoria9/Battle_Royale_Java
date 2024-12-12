@@ -29,7 +29,7 @@ public class Partida {
 		
 		for(int i = 0; i < num; i++)
 		{
-			enemigos[i].creaEnemigos(dificultad, tablero);
+			enemigos[i].creaEnemigos(dificultad, tablero, i);
 		}
 	}
 }

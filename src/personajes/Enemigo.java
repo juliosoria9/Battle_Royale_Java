@@ -17,42 +17,42 @@ public class Enemigo extends Personaje{
 		System.out.println("El enemigo " + getNombre() + " ha muerto");	
 	}
 	
-	public Enemigo creaEnemigos (String dificultad, Tablero tablero)
+	public Enemigo creaEnemigos (String dificultad, Tablero tablero, int index)
 	{
 		if(dificultad == "facil")
 		{
-			return crearEnemigoFacil(tablero);
+			return crearEnemigoFacil(tablero, index);
 			
 		}else if(dificultad == "media")
 		{
-			return crearEnemigoMedio(tablero);
+			return crearEnemigoMedio(tablero, index);
 		}
 		
-		return crearEnemigoDificil(tablero);
+		return crearEnemigoDificil(tablero, index);
 	}
 	
 	//Crea enemigos en posiciones aleatorias 
-	private Enemigo crearEnemigoFacil(Tablero tablero)
+	private Enemigo crearEnemigoFacil(Tablero tablero, int index)
 	{
 		int vida=50;
 		int arma=1;
 		
-		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoFacil", 0, 0, tablero);
+		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoFacil" + (index+1), 0, 0, tablero);
 	}
 
-	private Enemigo crearEnemigoMedio(Tablero tablero)
+	private Enemigo crearEnemigoMedio(Tablero tablero, int index)
 	{
 		int vida=75;
 		int arma=2;
 		
-		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoMedio", 0, 0, tablero);
+		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoMedio" + (index+1), 0, 0, tablero);
 	}
 	
-	private Enemigo crearEnemigoDificil(Tablero tablero)
+	private Enemigo crearEnemigoDificil(Tablero tablero, int index)
 	{
 		int vida =100;
 		int arma=3;
 		
-		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoDificil", 0, 0, tablero);
+		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoDificil" + (index+1), 0, 0, tablero);
 	}
 }
