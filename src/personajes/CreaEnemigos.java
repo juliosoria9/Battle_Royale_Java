@@ -4,12 +4,15 @@ import java.util.Random;
 import partida.Tablero;
 
 public class CreaEnemigos{
+	
+	private Random random = new Random();
 
 	public Enemigo crearEnemigo(String dificultad, Tablero tablero)
 	{
 		if(dificultad == "facil")
 		{
 			return crearEnemigoFacil(tablero);
+			
 		}else if(dificultad == "media")
 		{
 			return crearEnemigoMedio(tablero);
@@ -18,28 +21,30 @@ public class CreaEnemigos{
 		return crearEnemigoDificil(tablero);
 	}
 	
-	//falta pasarles arma
+	//Crea enemigos en posiciones aleatorias 
 	private Enemigo crearEnemigoFacil(Tablero tablero)
 	{
-		int vida 
-		bool control = false;
-		while(control != true)
-		{
-			int x
-			int y
-			control = checkPosition(); //funcion para ver si esta vacia la coordenada
-		}
-		int arma
-		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoFacil", x, y);
+		int vida=50;
+		int arma=1;
+		
+		
+		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoFacil", 0, 0, tablero);
 	}
 
 	private Enemigo crearEnemigoMedio(Tablero tablero)
 	{
-		return new Enemigo (10, Enemigo.setArma(1), "enemigoFacil", 0, 0);
+		int vida=75;
+		int arma=2;
+		
+		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoMedio", 0, 0, tablero);
 	}
 	
 	private Enemigo crearEnemigoDificil(Tablero tablero)
 	{
-		return new Enemigo (10, Enemigo.setArma(1), "enemigoFacil", 0, 0);
+		int vida =100;
+		int arma=3;
+		
+		
+		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoDificil", 0, 0, tablero);
 	}
 }
