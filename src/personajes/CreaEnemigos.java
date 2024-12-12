@@ -15,6 +15,7 @@ public class CreaEnemigos{
 		return crearEnemigoDificil();
 	}
 	
+	//falta pasarles arma
 	private Enemigo crearEnemigoFacil()
 	{
 		return Enemigo(10, arma, "enemigoFacil");
