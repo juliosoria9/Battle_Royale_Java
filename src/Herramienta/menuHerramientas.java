@@ -19,7 +19,7 @@ public class menuHerramientas {
         Scanner scanner = new Scanner(System.in);
         //Personaje personaje = new Personaje(100, null, "Héroe");
 
-        // menú de herramientas
+        //menú de herramientas
         System.out.println("=== Menú de Herramientas ===");
         for (int i = 0; i < herramientas.size(); i++) {
             System.out.println((i + 1) + ". " + herramientas.get(i));
@@ -52,7 +52,7 @@ public class menuHerramientas {
             while (scanner.hasNextLine()) {
                 String linea = scanner.nextLine();
 
-                //variables para cada las parte, se lee por espacios 
+                //variables para cada las parte, se lee hasta encontrar un espacio
                 Scanner lineaScanner = new Scanner(linea);
                 String nombre = "";
                 int bonus = 0;
