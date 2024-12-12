@@ -29,11 +29,29 @@ public abstract class Personaje {
 	            enemyVida -= arma.getDamage();
 	        }
 	        return enemyVida;
-	    }
+	}
 	
 	public void takeDamage(int enemyDamage) 
 	{
 		vida -= enemyDamage;
+		if(vida < 0)
+		{
+			Die();
+		}
+	}
+	
+	public void CheckDeath()
+	{
+		if(vida < 0)
+		{
+			Die();
+		}
+	}
+	
+	public void Die()
+	{
+		//tablero.setValorPos(0); //poner metodo de cambiar valores en tablero
+		System.out.println("El jugador " + nombre + " ha muerto");	
 	}
 	
 	//Getters de variables locales (no esta arma porque se haria un getter a la clase arma)
@@ -52,13 +70,31 @@ public abstract class Personaje {
 		return x;
 	}
 	
+	public void setX(int x)
+	{
+		this.x = x;
+	}
+	
 	public int getY()
 	{
 		return y;
 	}
 	
-	 public void setArma(Herramienta arma) {
-	        return;
+	public void setY(int y)
+	{
+		this.y = y;
+	}
+	
+	//Metodos para arma
+	 public static Herramienta setArma(String tipo) {
+		 //hacer condiciones para un arma segun tipo de player   
+		 //return armaSet;
+	 }
+	 
+	 public static Herramienta setArma(int tipo)
+	 {
+		 //hacer condiciones para un arma segun tipo de player   
+		 //return armaSet; 
 	 }
 	 
 	 public void usarArma() {

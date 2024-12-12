@@ -1,7 +1,6 @@
 package partida;
 
-import personajes.Jugador;
-import personajes.Enemigo;
+import personajes.*;
 
 public class Tablero {
 	private int[][] tablero;

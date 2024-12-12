@@ -8,4 +8,11 @@ public class Enemigo extends Personaje{
 	{
 		super(vida, arma, nombre, x, y);
 	}
+	
+	@Override
+	public void Die()
+	{
+		//tablero.setValorPos(0); //poner metodo de cambiar valores en tablero
+		System.out.println("El enemigo " + nombre + " ha muerto");	
+	}
 }

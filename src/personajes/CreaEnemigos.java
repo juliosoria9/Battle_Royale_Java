@@ -1,32 +1,45 @@
 package personajes;
 
+import java.util.Random;
+import partida.Tablero;
+
 public class CreaEnemigos{
 
-	public Enemigo crearEnemigo(String dificultad)
+	public Enemigo crearEnemigo(String dificultad, Tablero tablero)
 	{
 		if(dificultad == "facil")
 		{
-			return crearEnemigoFacil();
+			return crearEnemigoFacil(tablero);
 		}else if(dificultad == "media")
 		{
-			return crearEnemigoMedio();
+			return crearEnemigoMedio(tablero);
 		}
 		
-		return crearEnemigoDificil();
+		return crearEnemigoDificil(tablero);
 	}
 	
-	private Enemigo crearEnemigoFacil()
+	//falta pasarles arma
+	private Enemigo crearEnemigoFacil(Tablero tablero)
 	{
-		return Enemigo(10, arma, "enemigoFacil");
+		int vida 
+		bool control = false;
+		while(control != true)
+		{
+			int x
+			int y
+			control = checkPosition(); //funcion para ver si esta vacia la coordenada
+		}
+		int arma
+		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoFacil", x, y);
 	}
 
-	private Enemigo crearEnemigoMedio()
+	private Enemigo crearEnemigoMedio(Tablero tablero)
 	{
-		return Enemigo(10, arma,"enemigoMedio");
+		return new Enemigo (10, Enemigo.setArma(1), "enemigoFacil", 0, 0);
 	}
 	
-	private Enemigo crearEnemigoDificil()
+	private Enemigo crearEnemigoDificil(Tablero tablero)
 	{
-		return Enemigo(10, arma,"enemigoDificil");
-	}*/
+		return new Enemigo (10, Enemigo.setArma(1), "enemigoFacil", 0, 0);
+	}
 }
