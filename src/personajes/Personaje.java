@@ -24,6 +24,7 @@ public abstract class Personaje {
 	 public int makeDamage(int enemyVida) {
 	        //aplica  el daño usando el bonus de la herramienta equipada
 	        if (arma != null) {
+	        	usarArma();
 	            //reduce la vida del enemigo
 	            enemyVida -= arma.getDamage();
 	        }
@@ -44,6 +45,16 @@ public abstract class Personaje {
 	public String getNombre()
 	{
 		return nombre;
+	}
+	
+	public int getX()
+	{
+		return x;
+	}
+	
+	public int getY()
+	{
+		return y;
 	}
 	
 	 public void setArma(Herramienta arma) {
