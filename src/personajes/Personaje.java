@@ -86,15 +86,15 @@ public abstract class Personaje {
 	}
 	
 	//Metodos para arma
-	 public static Herramienta setArma(String tipo) {
+	 public static void setArma(String tipo) {
 		 //hacer condiciones para un arma segun tipo de player   
 		 //return armaSet;
 	 }
 	 
-	 public static Herramienta setArma(int tipo)
+	 public static void setArma(int tipo)
 	 {
 		 //hacer condiciones para un arma segun tipo de player   
-		 //return armaSet; 
+		 
 	 }
 	 
 	 public void usarArma() {
