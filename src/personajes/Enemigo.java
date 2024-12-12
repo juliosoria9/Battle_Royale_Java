@@ -1,12 +1,13 @@
 package personajes;
 
 import Herramienta.Herramienta;
+import partida.Tablero;
 
 public class Enemigo extends Personaje{
 	
-	public Enemigo(int vida, Herramienta arma, String nombre, int x, int y)
+	public Enemigo(int vida, Herramienta arma, String nombre, int x, int y, Tablero tablero)
 	{
-		super(vida, arma, nombre, x, y);
+		super(vida, arma, nombre, x, y, tablero);
 	}
 	
 	@Override
