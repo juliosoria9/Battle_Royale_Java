@@ -28,7 +28,7 @@ public class CreaEnemigos{
 		int arma=1;
 		
 		
-		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoFacil", 0, 0);
+		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoFacil", 0, 0, tablero);
 	}
 
 	private Enemigo crearEnemigoMedio(Tablero tablero)
@@ -36,7 +36,7 @@ public class CreaEnemigos{
 		int vida=75;
 		int arma=2;
 		
-		return new Enemigo (10, Enemigo.setArma(1), "enemigoMedio", 0, 0);
+		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoMedio", 0, 0, tablero);
 	}
 	
 	private Enemigo crearEnemigoDificil(Tablero tablero)
@@ -45,6 +45,6 @@ public class CreaEnemigos{
 		int arma=3;
 		
 		
-		return new Enemigo (10, Enemigo.setArma(1), "enemigoDificil", 0, 0);
+		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoDificil", 0, 0, tablero);
 	}
 }
