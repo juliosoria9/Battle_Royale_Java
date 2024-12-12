@@ -18,16 +18,16 @@ public class CreaEnemigos{
 	//falta pasarles arma
 	private Enemigo crearEnemigoFacil()
 	{
-		return Enemigo(10, arma, "enemigoFacil");
+		return new Enemigo (10, Enemigo.setArma(1), "enemigoFacil", 0, 0);
 	}
 
 	private Enemigo crearEnemigoMedio()
 	{
-		return Enemigo(10, arma,"enemigoMedio");
+		return new Enemigo (10, Enemigo.setArma(1), "enemigoFacil", 0, 0);
 	}
 	
 	private Enemigo crearEnemigoDificil()
 	{
-		return Enemigo(10, arma,"enemigoDificil");
-	}*/
+		return new Enemigo (10, Enemigo.setArma(1), "enemigoFacil", 0, 0);
+	}
 }

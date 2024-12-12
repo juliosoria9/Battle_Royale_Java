@@ -1,5 +1,6 @@
 package main;
-import package personajes;
+
+import personajes.*;
 
 public class Main {
 
@@ -8,7 +9,11 @@ public class Main {
 		
 		System.out.println("bienvenido al battle royal");
 		System.out.println("");
-		personaje jugadores[]= new personaje[num];
+		//cambiar a partida
+		int numJugadores = 0;
+		int numEnemigos = 0;
+		Jugador jugadores[] = new Jugador[numJugadores];
+		Enemigo enemigos[] = new Enemigo[numEnemigos];
 	}
 
 }
