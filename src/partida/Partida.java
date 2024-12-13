@@ -83,10 +83,10 @@ public class Partida {
 				jugadores[i] = new Jugador(100, nombre, "espada", 0, 0, tablero);
 			}else if(tipo == 2)//mago
 			{
-				jugadores[i] = new Jugador(100, nombre, "varita", 0, 0, tablero);
+				jugadores[i] = new Jugador(125, nombre, "varita", 0, 0, tablero);
 			}else if(tipo == 3)//arquero
 			{
-				jugadores[i] = new Jugador(100, nombre, "arco", 0, 0, tablero);
+				jugadores[i] = new Jugador(75, nombre, "arco", 0, 0, tablero);
 			}else//por defecto
 			{
 				jugadores[i] = new Jugador(100, nombre, "espada", 0, 0, tablero);
