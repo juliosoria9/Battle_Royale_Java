@@ -14,6 +14,8 @@ public class Enemigo extends Personaje{
 	public void Die()
 	{
 		//tablero.setValorPos(0); //poner metodo de cambiar valores en tablero
+		//Tablero esta en protected , cambiar
+		//tablero.asignarValor(getX(), getY(), 0);
 		System.out.println("El enemigo " + getNombre() + " ha muerto");	
 	}
 	

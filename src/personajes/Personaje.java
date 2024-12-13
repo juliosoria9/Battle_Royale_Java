@@ -51,8 +51,8 @@ public abstract class Personaje {
 	
 	public void Die()
 	{
-		tablero.asignarValor(x, y, 0);
 		System.out.println("El jugador " + nombre + " ha muerto");	
+		tablero.asignarValor(x, y, 0);
 	}
 	
 	//Getters de variables locales (no esta arma porque se haria un getter a la clase arma)

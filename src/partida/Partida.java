@@ -20,6 +20,7 @@ public class Partida {
 		String dificultad = lector.next();
 		
 		crearPersonajes(num, dificultad, tablero); //funcion para inicializar personajes
+		tablero.mostrarTablero();//muestra el tablero inicial
 	}
 	
 	public void crearPersonajes(int num, String dificultad, Tablero tablero)
@@ -27,9 +28,18 @@ public class Partida {
 		Jugador jugadores[] = new Jugador[num];
 		Enemigo enemigos[] = new Enemigo[num];
 		
+		//Crea jugadores
+		for (int i = 0; i < num; i++) {
+            //completar para crear jugadores
+        }
+		
+		//Crea enemigos
 		for(int i = 0; i < num; i++)
 		{
 			enemigos[i].creaEnemigos(dificultad, tablero, i);
 		}
+		
+		//tablero.setarraypersonajes();
+		tablero.meterPersonajes();
 	}
 }
