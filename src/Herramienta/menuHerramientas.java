@@ -11,7 +11,7 @@ public class menuHerramientas {
         ArrayList<Herramienta> herramientas = cargarHerramientasDesdeArchivo(rutaArchivo);
 
         if (herramientas.isEmpty()) {
-            System.out.println("No se encontraron herramientas en el archivo");
+            System.out.println("no hay nada el archivo");
             return null;
         }
 
@@ -23,12 +23,12 @@ public class menuHerramientas {
 
         //seleccionar herramienta
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Selecciona una herramienta: ");
+        System.out.print("seleccionar una herramienta:");
         int opcion = scanner.nextInt();//se guarda la herramienta seleccionada 
 
         //verificar si es valido
         if (opcion < 1 || opcion > herramientas.size()) {
-            System.out.println("Opción inválida.");
+            System.out.println("opción no valida");
             return null;
         } else {
             return herramientas.get(opcion - 1); //devuelve el herramienta  selecionada 
@@ -64,7 +64,7 @@ public class menuHerramientas {
                 lineaScanner.close();
             }
         } catch (Exception e) {
-            System.out.println("Error al leer el archivo de herramientas: " + e.getMessage());
+            System.out.println("Error:" + e.getMessage());
         }
 
         return herramientas;
@@ -72,7 +72,7 @@ public class menuHerramientas {
     
     public static int calcularDaño(Herramienta herramienta) {
         if (herramienta == null || herramienta.getTipo() == null) {
-            System.out.println("No se ha equipado una herramienta válida.");
+            System.out.println("Herramienta no valida");
             return 0;
         }
 

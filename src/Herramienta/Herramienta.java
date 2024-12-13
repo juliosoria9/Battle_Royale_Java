@@ -5,7 +5,7 @@ public class Herramienta {
     private int bonus;
     private String tipo;
 
-    // Constructor
+    //constructor
     public Herramienta(String nombre, int bonus, String tipo) {
         this.nombre = nombre;
         this.bonus = bonus;
@@ -14,7 +14,7 @@ public class Herramienta {
 
     //metodo para usar la herramienta 
     public void usar() {
-        System.out.println("Usando la herramienta: " + nombre + " (Tipo: " + tipo + ", Bonus: " + bonus + ")");
+        System.out.println("se esta usando la herramienta: " + nombre + " (Tipo: " + tipo + ", Bonus: " + bonus + ")");
     }
 
     //este metodo devuelve el bonus que suma cada herramienta 
