@@ -12,14 +12,13 @@ public class Herramienta {
         this.tipo = tipo;
     }
 
-    //método que simula usar la herramienta
+    //metodo para usar la herramienta 
     public void usar() {
         System.out.println("Usando la herramienta: " + nombre + " (Tipo: " + tipo + ", Bonus: " + bonus + ")");
     }
 
-    //método para obtener el daño que produce la herramienta
+    //este metodo devuelve el bonus que suma cada herramienta 
     public int getDamage() {
-        //en este caso, el daño es igual al bonus
         return bonus;
     }
 
@@ -28,7 +27,7 @@ public class Herramienta {
         return nombre + " (Bonus: " + bonus + ", Tipo: " + tipo + ")";
     }
     
-    // Getters y setters
+    //getters y setters
     public String getNombre() {
         return nombre;
     }
