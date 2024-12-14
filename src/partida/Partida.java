@@ -1,6 +1,7 @@
 package partida;
 
 import java.util.Scanner;
+import partida.Tablero;
 
 import personajes.*;
 
@@ -12,7 +13,7 @@ public class Partida {
 	public void inicio()
 	{
 		Scanner lector = new Scanner(System.in);
-		Tablero tablero = new Tablero(10, 10); //pasarle las medidas del tablero
+		Tablero tablero = new Tablero(10,10); //pasarle las medidas del tablero
 		boolean controlDif = false;
 		boolean controlNum = false;
 		String strDificultad = "\0";
@@ -44,6 +45,7 @@ public class Partida {
 		Jugador jugadores[] = new Jugador[num];
 		Enemigo enemigos[] = new Enemigo[num];
 		
+		//dificultad
 		while(controlDif == false)
 		{
 			System.out.println("Introduzca la dificultad:");
@@ -61,14 +63,21 @@ public class Partida {
 				System.out.println("");
 			}
 		}	
+		
 		crearPersonajes(num, strDificultad, tablero, jugadores, enemigos); //funcion para inicializar personajes
 		tablero.mostrarTablero();//muestra el tablero inicial
 		
 		while(controlPartida == true)
 		{
 			turno(num, jugadores, enemigos);
-			controlPartida = CheckPersonajes();
+			controlPartida = CheckPersonajes(jugadores,enemigos);
 		}
+		
+		if (jugadoresVivos(jugadores)) {
+            System.out.println("¡Habéis ganado!");
+        } else if (enemigosVivos(enemigos)) {
+            System.out.println("¡Habéis perdido!");
+        }
 	}
 
 	private void turno(int num, Jugador jugadores[], Enemigo enemigos[])
@@ -80,19 +89,21 @@ public class Partida {
 			//turno player i
 			tablero.moverse(jugadores[i]);
 			oponente = tablero.puedeAtacar(jugadores[i]); //comprueba si ese jugador puede atacar
-			if(oponente != null)
+			if(oponente != null)//&& tablero.distancia(jugadores[i],oponente)<=3)
 			{
 				jugadores[i].makeDamage(oponente.getVida()); //si puede atacar ataca
-				oponente = null; //se reseta la variable para el siguiente movimiento
+				//oponente = null; //se reseta la variable para el siguiente movimiento
+				oponente.CheckDeath();
 			}
 			
 			//turno enemy i
 			tablero.moverse(enemigos[i]);
 			oponente = tablero.puedeAtacar(enemigos[i]); //comprueba si ese enemigo puede atacar
-			if(oponente != null)
+			if(oponente != null)//&& tablero.distancia(jugadores[i],oponente)<=3)
 			{
 				jugadores[i].makeDamage(oponente.getVida()); //si puede atacar ataca
-				oponente = null; //se reseta la variable para el siguiente movimiento
+				//oponente = null; //se reseta la variable para el siguiente movimiento
+				oponente.CheckDeath();
 			}
 		}
 	}
@@ -133,6 +144,7 @@ public class Partida {
 		//Crea enemigos
 		for(int i = 0; i < num; i++)
 		{
+			enemigos[i] = new Enemigo(0, null, "Enemigo" + (i + 1), 0, 0, tablero);//inicializacion del enemig
 			enemigos[i].creaEnemigos(dificultad, tablero, i);
 		}
 		
@@ -141,12 +153,29 @@ public class Partida {
 	}
 	
 	//comprueba que aun queden enemigos o jugadores
-	private boolean CheckPersonajes()
+	private boolean CheckPersonajes(Jugador[] jugadores , Enemigo[] enemigos)
 	{
 		// TODO Auto-generated method stub
+		return jugadoresVivos(jugadores) && enemigosVivos(enemigos);//
+	}
+	//comprueba si hay jugadores vivos
+	private boolean jugadoresVivos(Jugador[] jugadores) {
+		for(int i=0;i<jugadores.length;i++) {
+			if(jugadores[i] != null && jugadores[i].getVida()>0) {
+				return true;
+			}
+		}
 		return false;
 	}
-	
+	//comprueba si hay enemigos vivs
+	private boolean enemigosVivos(Enemigo[] enemigos) {
+		for(int i = 0; i < enemigos.length; i++) {
+            if (enemigos[i] != null && enemigos[i].getVida()>0) {
+				return true;
+			}
+		}
+		return false;
+	}
 	//probablemente esto se podria hacer con un enum
 	private String dificultadToString(int dificultad) {
 		if(dificultad == 1)
