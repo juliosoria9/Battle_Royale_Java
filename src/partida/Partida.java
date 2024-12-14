@@ -190,4 +190,50 @@ public class Partida {
 		}
 		return null;
 	}
+	
+	
+	//funcion moverse esta llama al tablero y gestiona tmabien la entrada del usuario
+	
+	private void moverse(Personaje p1,Scanner lector,Tablero tablero) { //pasamos el personaje que queremos que se mueva el escaner y el tablero
+		
+		//variables de movimiento en x e y
+		int moversex = 0; 
+		int moversey = 0;
+		do {
+		System.out.println("introduce si quieres poverte: derecha (1) izquierda(2) o no moverse lateralmente (0)");
+		 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
+		 case 1:
+			 moversex = 1;
+			 break;
+		 case 2:
+			 moversex = -1;
+			 break;
+		 case 0:
+			 moversex = 0;
+			 break;
+	        default:
+	            System.out.println("Opción no reconocida.\n");
+	            break;
+		 }
+		 System.out.println("introduce si quieres moverte: arriba (1) abajo(2) o no moverse verticalmente (0)");
+		 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
+		 case 1:
+			 moversey = 1;
+			 break;
+		 case 2:
+			 moversey = -1;
+			 break;
+		 case 0:
+			 moversey = 0;
+			 break;
+		 default:
+	            System.out.println("Opción no reconocida.\n");
+	            break;
+		 }
+		 if(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0){ // comprobamos los valores para soltar el mensaje de error
+			 System.out.printf("introduce valores validos para poder moverte");
+		 }
+		}while(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0); // si los valores no son correctos vulvemos a repetir 
+		 tablero.moverse(p1, moversex, moversey); //llamamos a la funcion para moverse de la clase tablero 
+	}
 }
