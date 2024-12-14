@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class menuHerramientas {
 
-    public static Herramienta seleccionarHerramienta(String rutaArchivo) {
+    public static Herramienta seleccionarHerramienta(String arma2) {
         //cargar las herramientas desde el archivo
-        ArrayList<Herramienta> herramientas = cargarHerramientasDesdeArchivo(rutaArchivo);
+        ArrayList<Herramienta> herramientas = cargarHerramientasDesdeArchivo(arma2);
 
         if (herramientas.isEmpty()) {
             System.out.println("no hay nada el archivo");
