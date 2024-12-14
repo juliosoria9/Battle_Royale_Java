@@ -80,7 +80,7 @@ public class Tablero {
     }
     
     
-    //misma funcion pero funciona con cordenadas
+    //misma funcion pero funciona con cordenadas para ver distancias
     public int distacia(int x1,int x2,int y1,int y2) {
    	
    	int distanciaX = Math.abs(x1 - x2); // con el Math.abs hacemos que sea positivo
@@ -88,11 +88,26 @@ public class Tablero {
        return distanciaX + distanciaY;
 
    }
-    
+    //esta funcion le pasamos direcion y nos compueba su podemos movernos si no es asi nos da error y devuelve -1
+    //ejmplo de uso me quiero mover uno arriba uno derecha direccionx = 1 direcciony = 1 si queremos abajo izquierda direccionx = -1 direcciony = -1
     public int moverse(Personaje p1, int direccionx , int direcciony) {
-    	
-    	
+    	 //comprobamos que la nueva posicion esta dentro del rango
+    	if( (tablero.length <= p1.getX() + direccionx && p1.getX() + direccionx >= 0)&& ( tablero[0].length <= p1.getY() + direcciony && p1.getY() + direcciony >= 0)) {
+    		if(obtenerValor(p1.getX() + direccionx,p1.getY() + direcciony) == 0) {		//comprovamos que la casilla este libre ( = 0)
+    			
+    			p1.setX(p1.getX() + direccionx) ;
+        		p1.setY(p1.getY() + direcciony) ;
+    		}else {
+    			System.out.println("casilla ocupada");
+        		return -1; //devolvemos -1 ya que dio error
+    		}
+    		
+    	}else {
+    		System.out.println("coodenadas fuera de rango");
+    		return -1; //devolvemos -1 ya que dio error
+    	}
     	return 0;
+    	
     	
     }
     
