@@ -35,8 +35,8 @@ public class Tablero {
     
     
     // construir de una cantidad especifica de filas y columna
-    public Tablero(int filas, int columnas) {
-        tablero = new int[filas][columnas];
+    public Tablero(int numero_personajes) {
+        tablero = new int[numero_personajes * 9][numero_personajes * 9];
         
     }
 
@@ -67,6 +67,33 @@ public class Tablero {
             }
             System.out.println();
         }
+    }
+    
+    //calcula la distancia de un personaje a otro
+    public int distacia(Personaje p1,Personaje p2) {
+    	 //esta funcion se basa en las lineas que hay entre jugadores de forma que si esta diagonal cuenta dos 
+    	
+    	int distanciaX = Math.abs(p1.getX() - p2.getX()); // con el Math.abs hacemos que sea positivo
+        int distanciaY = Math.abs(p1.getY() - p2.getY());
+        return distanciaX + distanciaY;
+
+    }
+    
+    
+    //misma funcion pero funciona con cordenadas
+    public int distacia(int x1,int x2,int y1,int y2) {
+   	
+   	int distanciaX = Math.abs(x1 - x2); // con el Math.abs hacemos que sea positivo
+       int distanciaY = Math.abs(y1 - y2);
+       return distanciaX + distanciaY;
+
+   }
+    
+    public int moverse(Personaje p1, int direccionx , int direcciony) {
+    	
+    	
+    	return 0;
+    	
     }
     
     
