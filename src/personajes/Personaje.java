@@ -7,7 +7,7 @@ import partida.Tablero;
 public abstract class Personaje {
 
 	private int vida = 0;
-	private Herramienta arma;
+	protected Herramienta arma;//para que la clase arma pueda acceder
 	private String nombre;
 	private int x = 0;
 	private int y = 0;
