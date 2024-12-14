@@ -120,9 +120,28 @@ public class Partida {
 			int tipo = lectorCrear.nextInt();
 			System.out.println("");
 			
-			//hacerlo con control de errores para que ponga jugador(i+1) si se pone enter/espacio/etc
-			System.out.println("Introudce el nombre de tu personaje:");
-			String nombre = lectorCrear.next();
+			String nombre=null;
+			boolean nombreValido=false;
+			
+			while(!nombreValido) {
+				try {
+					System.out.println("Introudce el nombre de tu personaje:");
+					nombre = lectorCrear.next();
+					
+					if(nombre==null || nombre.length()==0) {
+						throw new Exception("El campo del nombre no puede estar vacio");
+					}
+					if(nombre.length()>20) {
+						throw new Exception("El nombre es muy largo( maximo 20 caracteres)");
+					}
+					
+					nombreValido=true;
+				}catch(Exception e) {
+					System.out.println("Error");
+				}
+				
+			}
+			
 			System.out.println("");
 			
 			//hacer enum para el control de tipo
