@@ -13,7 +13,7 @@ public class Partida {
 	public void inicio()
 	{
 		Scanner lector = new Scanner(System.in);
-		Tablero tablero = new Tablero(10); //pasarle las medidas del tablero
+		Tablero tablero = new Tablero(10,10); //pasarle las medidas del tablero
 		boolean controlDif = false;
 		boolean controlNum = false;
 		String strDificultad = "\0";
