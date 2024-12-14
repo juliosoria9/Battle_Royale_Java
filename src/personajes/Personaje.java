@@ -10,7 +10,7 @@ public abstract class Personaje {
 	private String nombre;
 	private int x = 0;
 	private int y = 0;
-	private Tablero tablero;
+	protected Tablero tablero; //para poder hacer el override de Die() en enemigos
 	
 	public Personaje (int vida, Herramienta arma, String nombre, int x, int y, Tablero tablero)
 	{

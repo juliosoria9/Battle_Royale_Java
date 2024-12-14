@@ -5,6 +5,9 @@ import java.util.Scanner;
 import personajes.*;
 
 public class Partida {
+	
+	//arrays declarados como globales porque todas las funciones tienen que poder acceder a ellos
+	
 
 	public void inicio()
 	{
@@ -14,6 +17,7 @@ public class Partida {
 		boolean controlNum = false;
 		String strDificultad = "\0";
 		int num = 0;
+		boolean controlPartida = true;
 		
 		//PARTIDA
 		System.out.println("----------------BIENVENIDO AL BATTLE ROYALE------------------");
@@ -36,6 +40,10 @@ public class Partida {
 			}
 		}
 		
+		//Se crean los arrays de personajes y enemigos
+		Jugador jugadores[] = new Jugador[num];
+		Enemigo enemigos[] = new Enemigo[num];
+		
 		while(controlDif == false)
 		{
 			System.out.println("Introduzca la dificultad:");
@@ -53,16 +61,45 @@ public class Partida {
 				System.out.println("");
 			}
 		}	
-		crearPersonajes(num, strDificultad, tablero); //funcion para inicializar personajes
+		crearPersonajes(num, strDificultad, tablero, jugadores, enemigos); //funcion para inicializar personajes
 		tablero.mostrarTablero();//muestra el tablero inicial
+		
+		while(controlPartida == true)
+		{
+			turno(num, jugadores, enemigos);
+			controlPartida = CheckPersonajes();
+		}
 	}
 
-	public void crearPersonajes(int num, String dificultad, Tablero tablero)
+	private void turno(int num, Jugador jugadores[], Enemigo enemigos[])
+	{
+		Personaje oponente; //se declara como tipo personaje para que valga para ambos
+		
+		for(int i = 0; i < num; i++)
+		{
+			//turno player i
+			tablero.moverse(jugadores[i]);
+			oponente = tablero.puedeAtacar(jugadores[i]); //comprueba si ese jugador puede atacar
+			if(oponente != null)
+			{
+				jugadores[i].makeDamage(oponente.getVida()); //si puede atacar ataca
+				oponente = null; //se reseta la variable para el siguiente movimiento
+			}
+			
+			//turno enemy i
+			tablero.moverse(enemigos[i]);
+			oponente = tablero.puedeAtacar(enemigos[i]); //comprueba si ese enemigo puede atacar
+			if(oponente != null)
+			{
+				jugadores[i].makeDamage(oponente.getVida()); //si puede atacar ataca
+				oponente = null; //se reseta la variable para el siguiente movimiento
+			}
+		}
+	}
+
+	public void crearPersonajes(int num, String dificultad, Tablero tablero, Jugador jugadores[], Enemigo enemigos[])
 	{
 		Scanner lectorCrear = new Scanner(System.in);
-		
-		Jugador jugadores[] = new Jugador[num];
-		Enemigo enemigos[] = new Enemigo[num];
 		
 		//Crea jugadores
 		for (int i = 0; i < num; i++)
@@ -101,6 +138,13 @@ public class Partida {
 		
 		//tablero.setarraypersonajes();
 		tablero.meterPersonajes();
+	}
+	
+	//comprueba que aun queden enemigos o jugadores
+	private boolean CheckPersonajes()
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	//probablemente esto se podria hacer con un enum
