@@ -1,7 +1,8 @@
 package main;
 
 import partida.Partida;
-import personajes.*;
+import personajes.Personaje;
+import Herramienta.Herramienta;
 
 public class Main {
 
@@ -10,6 +11,9 @@ public class Main {
 		
 		Partida partida = new Partida();
 	    partida.inicio();
+	    
+	  
 	}
+	
 
 }

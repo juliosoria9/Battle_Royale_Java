@@ -39,6 +39,7 @@ public class Enemigo extends Personaje{
 		int arma=1;
 		
 		return new Enemigo (vida, Enemigo.setArma(arma), "enemigoFacil" + (index+1), 0, 0, tablero);
+		
 	}
 
 	private Enemigo crearEnemigoMedio(Tablero tablero, int index)
