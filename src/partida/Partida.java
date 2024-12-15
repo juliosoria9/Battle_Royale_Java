@@ -126,6 +126,10 @@ public class Partida {
 				System.out.printf("error al moverte");
 			}
 			}while(controlmov == -1);
+			
+			//esto va segun mi logica porque si no cuando se rompa el bucle una vez no vuelve a entrar
+			controlmov = -1; //resetea el valor del controlmov
+			
 			System.out.println("este es el tablero una vez te moviste");
 			System.out.println("-------------------------------------------------");
 			tablero.mostrar_con_2(jugadores[i], 2);
@@ -135,18 +139,43 @@ public class Partida {
 			
 			
 			//-------------------------ataque---------------------------
+			//da un warning rarito
 			pesonajes_a_atacar = tablero.atacar(jugadores[i]); //esto devuelve el arraylist con los personajes a los que su arma tiene rango para atacar
 			do {
-			tablero.mostrarenemigos(pesonajes_a_atacar,jugadores[i]);
-			System.out.println("estos son los jugadores que puedes atacar (lo de 3 para arriba) escribe el numero del jugador a quien quieras atacar que este en tu rango");
-			elecion_ataque = lector.nextInt();
+				//Esto da un warning rarete
+			tablero.mostrarenemigos(pesonajes_a_atacar,jugadores[i]); //muestra a los enemigos a los que puedes atacar
+			//mayores de 3 porque a los que enemigos a los que no se puede atacar se representan con 1 y los jugadores con 2
+			System.out.println("estos son los jugadores que puedes atacar (los de 3 para arriba) escribe el numero del jugador a quien quieras atacar que este en tu rango");
+			elecion_ataque = lector.nextInt(); //elige el enemigo al que atacar
+			
+			//has puesto que todo valga, porque te vale todo lo menor o todo lo mayor, en otras palabras todo menos =
+			//esto creo que o es el ultimo o no funciona, porque size te da el tamaño maximo
 			if(elecion_ataque < pesonajes_a_atacar.size() || elecion_ataque > pesonajes_a_atacar.size()) {
 				System.out.println("el enemigo introducido no es correcto o no esta disponible");
 			}
 			
 			
-			}while(elecion_ataque < pesonajes_a_atacar.size()-3 || elecion_ataque > pesonajes_a_atacar.size()-3);
+			}while(elecion_ataque < pesonajes_a_atacar.size()-3 || elecion_ataque > pesonajes_a_atacar.size()-3); //el do while tampoco entendemos la condicion, ¿por que restas 3? //si peta revisa esto
 			pesonajes_a_atacar.get(elecion_ataque-3).takeDamage(jugadores[i].getArma().getdaño());
+		}
+		
+		//turno enemigos
+		for(int i = 0; i < numero_de_bots; i++)
+		{
+			
+			//--------------------------movimiento--------------------
+			System.out.println("turno del enemigo:"+ enemigos[i].getNombre());
+			//no tengo muy claro si hay que poner tablero.mostrar_con_2(enemigos[i],2);
+			do {
+				controlmov = moverse_enemigo(jugadores[i]);
+				if(controlmov == 0) {
+					System.out.printf("error al moverte");
+				}
+				}while(controlmov == -1);
+				
+				controlmov = -1; //resetea el valor del controlmov
+				
+				//-------------------------ataque---------------------------
 		}
 		
 	}
@@ -164,6 +193,7 @@ public class Partida {
 			{
 				name = "jugador" + i;
 			}
+			//-----------------eleccion de tipo---------------------
 			System.out.println("\nElige el tipo:");
 			System.out.println("Guerrero: 1 (por defecto) / Tanque: 2 / Asesino: 3");
 			int tipo = lector.nextInt();
@@ -187,6 +217,7 @@ public class Partida {
 			break;
 			}
 			
+			//--------------imprime info arma-----------------
 			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getArma().toString());
 			arraypersonajes[j] = jugadores[i-1] ;
 			j++;
@@ -205,7 +236,7 @@ public class Partida {
 	
 	
 	//modifican la vida de jugadores y enemigos en funcion de la dificultad
-	//se hace un setter de la vida porque cada tipo de personaje tiene una vida base distinta (porque hay que tener 3 tipos de personajes)
+	//se hace un setter de la vida porque cada tipo de personaje tiene una vida base distinta
 	public void dificultad_facil() {
 		for(int i = 0; i < numero_de_jugadores; i++)
 		{
@@ -255,17 +286,17 @@ public class Partida {
 		int moversex = 0; 
 		int moversey = 0;
 		do {
-		System.out.println("introduce si quieres poverte: derecha (1) izquierda(2) o no moverse lateralmente (0)");
+		System.out.println("introduce si quieres moverte: derecha (1) izquierda(2) o no moverse lateralmente (0)");
 		 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
 		 case 1:
-			 moversex = 1;
+			 moversex = 1; //derecha
 			 break;
 		 case 2:
-			 moversex = -1;
+			 moversex = -1; //izquierda
 			 break;
 		 case 0:
 			 
-			 moversex = 0;
+			 moversex = 0; //nada
 			 break;
 	        default:
 	        	
@@ -275,13 +306,13 @@ public class Partida {
 		 System.out.println("introduce si quieres moverte: arriba (1) abajo(2) o no moverse verticalmente (0)");
 		 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
 		 case 1:
-			 moversey = -1;
+			 moversey = -1; //arriba
 			 break;
 		 case 2:
-			 moversey = 1;
+			 moversey = 1; //abajo
 			 break;
 		 case 0:
-			 moversey = 0;
+			 moversey = 0; //nada
 			 break;
 		 default:
 			  
@@ -351,12 +382,13 @@ public class Partida {
 			 
 		}
 
+		//controla creacion de jugadores y enemigos
 	private int obtenernumero_de_personajeseroValido(Scanner lector,String tipo, int min, int max) {
 	    int numero_de_personajes;
 	    boolean valido = false;
 
 	    do {
-	        System.out.printf("Introduzca el número de %s entre %d y %d:%n", tipo, min, max);
+	        System.out.printf("Introduzca el número de %s entre %d y %d:%n", tipo, min, max); //tipo = jugador/enemigo
 	        numero_de_personajes = lector.nextInt();
 
 	        if (numero_de_personajes >= min && numero_de_personajes <= max) {
@@ -367,18 +399,6 @@ public class Partida {
 	    } while (!valido);
 
 	    return numero_de_personajes;
-	}
-
-	
-	
-	public String toString() {
-	    System.out.println("---- Información de la Partida ----");
-	    System.out.println("Número total de personajes: " + numero_de_personajes);
-	    System.out.println("Número de jugadores: " + numero_de_jugadores);
-	    System.out.println("Número de enemigos: " + numero_de_bots);
-	    System.out.println("Estado del tablero:");
-	    tablero.mostrarTablero(); 
-		return null;
 	}
 
 }
