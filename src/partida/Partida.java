@@ -124,9 +124,8 @@ public class Partida {
 			if(controlmov == 0) {
 				System.out.printf("error al moverte");
 			}
-			}while(controlmov == 0);
+			}while(controlmov == -1);
 			System.out.println("este es el tablero una vez te moviste");
-			tablero.mostrar_con_2(jugadores[i],2);
 			System.out.println("-------------------------------------------------");
 			
 			
@@ -135,7 +134,7 @@ public class Partida {
 			pesonajes_a_atacar = tablero.atacar(jugadores[i]); //esto devuelve el arraylist con los personajes a los que su arma tiene rango para atacar
 			do {
 			tablero.mostrarenemigos(pesonajes_a_atacar,jugadores[i]);
-			System.out.println("estos son los jugadores que puedes atacar (lo 3 para arriba) escribe el numero del jugador a quien quieras atacar que este en tu rango");
+			System.out.println("estos son los jugadores que puedes atacar (lo de 3 para arriba) escribe el numero del jugador a quien quieras atacar que este en tu rango");
 			elecion_ataque = lector.nextInt();
 			if(elecion_ataque < pesonajes_a_atacar.size() || elecion_ataque > pesonajes_a_atacar.size()) {
 				System.out.println("el enemigo introducido no es correcto o no esta disponible");
@@ -264,6 +263,7 @@ public class Partida {
 			 moversey = 0;
 			 break;
 	        default:
+	        	
 	            System.out.println("Opción no reconocida.\n");
 	            break;
 		 }
@@ -279,18 +279,32 @@ public class Partida {
 			 moversex = 0;
 			 break;
 		 default:
+			  
 	            System.out.println("Opción no reconocida.\n");
 	            break;
 		 }
 		 if(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0){ // comprobamos los valores para soltar el mensaje de error
 			 System.out.printf("introduce valores validos para poder moverte");
 		 }
-		}while(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0); // si los valores no son correctos vulvemos a repetir 
-		 return(tablero.moverse(p1, moversex, moversey)); //llamamos a la funcion para moverse de la clase tablero 
+		}while(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0);
+		System.out.println(moversex+"."+moversey);
+		// si los valores no son correctos vulvemos a repetir
+		int num = tablero.moverse(p1, moversex, moversey);
+		System.out.println("dev"+num);
+		 return(num); //llamamos a la funcion para moverse de la clase tablero y segun lo que devuelva controlamos el error
+		 
 	}
 	
 	
 	
+<<<<<<< HEAD
+	
+	
+	
+	
+	
+=======
+>>>>>>> 2d4dbccd31bdeffedcac5759b33196e8acecd8c6
 	private int obtenernumero_de_personajeseroValido(Scanner lector,String tipo, int min, int max) {
 	    int numero_de_personajes;
 	    boolean valido = false;

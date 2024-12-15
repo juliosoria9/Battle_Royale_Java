@@ -151,23 +151,29 @@ public class Tablero {
     
     public int moverse(Personaje p1, int direccionx , int direcciony) {
     	 //comprobamos que la nueva posicion esta dentro del rango
-    	if( (tablero.length <= p1.getX() + direccionx && p1.getX() + direccionx >= 0)&& ( tablero[0].length <= p1.getY() + direcciony && p1.getY() + direcciony >= 0)) {
-    		if(obtenerValor(p1.getX() + direccionx,p1.getY() + direcciony) == 0) {		//comprovamos que la casilla este libre ( = 0)
-    			
+        int nuevaX = p1.getX() + direccionx;
+        int nuevaY = p1.getY() + direcciony;
+    	
+    	
+    	if( nuevaX >= 0 && nuevaX < tablero.length && nuevaY >= 0 && nuevaY < tablero[0].length) {
     			p1.setX(p1.getX() + direccionx) ;
         		p1.setY(p1.getY() + direcciony) ;
-    		}else {
-    			System.out.println("casilla ocupada");
-        		return -1; //devolvemos -1 ya que dio error
-    		}
-    		
-    	}else {
-    		System.out.println("coodenadas fuera de rango");
-    		return -1; //devolvemos -1 ya que dio error
-    	}
-    	return 0;
+
+        		 if (obtenerValor(nuevaX, nuevaY) == 0) {
+        	            // Actualizamos la posición del personaje
+        	            p1.setX(nuevaX);
+        	            p1.setY(nuevaY);
+        	            return 1; // Movimiento exitoso
+        	        } else {
+        	            System.out.println("Casilla ocupada.");
+        	            return -1; // Error: Casilla ocupada
+        	        }
+        	    } else {
+        	        System.out.println("Coordenadas fuera de rango.");
+        	        return -1; // Error: Fuera de rango
     	
-    	
+        	    }
+    
     }
     
     
