@@ -255,13 +255,13 @@ public class Partida {
 		System.out.println("introduce si quieres poverte: derecha (1) izquierda(2) o no moverse lateralmente (0)");
 		 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
 		 case 1:
-			 moversex = 1;
+			 moversey = 1;
 			 break;
 		 case 2:
-			 moversex = -1;
+			 moversey = -1;
 			 break;
 		 case 0:
-			 moversex = 0;
+			 moversey = 0;
 			 break;
 	        default:
 	            System.out.println("Opción no reconocida.\n");
@@ -270,13 +270,13 @@ public class Partida {
 		 System.out.println("introduce si quieres moverte: arriba (1) abajo(2) o no moverse verticalmente (0)");
 		 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
 		 case 1:
-			 moversey = 1;
+			 moversex = 1;
 			 break;
 		 case 2:
-			 moversey = -1;
+			 moversex = -1;
 			 break;
 		 case 0:
-			 moversey = 0;
+			 moversex = 0;
 			 break;
 		 default:
 	            System.out.println("Opción no reconocida.\n");
