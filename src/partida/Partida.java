@@ -121,9 +121,17 @@ public class Partida {
 			tablero.mostrar_con_2(jugadores[i],2);
 			//-------------------------ataque---------------------------
 			pesonajes_a_atacar = tablero.atacar(jugadores[i]); //esto devuelve el arraylist con los personajes a los que su arma tiene rango para atacar
+			do {
 			tablero.mostrarenemigos(pesonajes_a_atacar,jugadores[i]);
 			System.out.println("estos son los jugadores que puedes atacar (lo 3 para arriba) escribe el numero del jugador a quien quieras atacar que este en tu rango");
-			lector.nextInt();
+			elecion_ataque = lector.nextInt();
+			if(elecion_ataque < pesonajes_a_atacar.size() || elecion_ataque > pesonajes_a_atacar.size()) {
+				System.out.println("el enemigo introducido no es correcto o no esta disponible");
+			}
+			
+			
+			}while(elecion_ataque < pesonajes_a_atacar.size()-3 || elecion_ataque > pesonajes_a_atacar.size()-3);
+			pesonajes_a_atacar.get(elecion_ataque-3).takeDamage(jugadores[i].getarma().getdaño());
 		}
 		
 	}
