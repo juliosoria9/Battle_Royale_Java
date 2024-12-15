@@ -118,18 +118,31 @@ public class Partida {
 	}
 	
 	public void turno() {
+		int controlmov= 0;
 		ArrayList<Personaje> pesonajes_a_atacar = new ArrayList<Personaje>();
 		int elecion_ataque;
 		System.out.println("inicio de turno");
 		tablero.mostrarTablero();
 		//turno de jugadores
 		for(int i = 0;i<numero_de_jugadores;i++) {
+			
+			
+			
 			//--------------------------movimiento--------------------
 			System.out.println("turno del jugador:"+ jugadores[i].getNombre());
 			tablero.mostrar_con_2(jugadores[i],2);
-			moverse_jugador(jugadores[i]);
+			do {
+			controlmov = moverse_jugador(jugadores[i]);
+			if(controlmov == 0) {
+				System.out.printf("error al moverte");
+			}
+			}while(controlmov == 0);
 			System.out.println("este es el tablero una vez te moviste");
 			tablero.mostrar_con_2(jugadores[i],2);
+			System.out.println("-------------------------------------------------");
+			
+			
+			
 			//-------------------------ataque---------------------------
 			pesonajes_a_atacar = tablero.atacar(jugadores[i]); //esto devuelve el arraylist con los personajes a los que su arma tiene rango para atacar
 			do {
@@ -186,7 +199,7 @@ public class Partida {
 		{
 			 name = ("bot " + k);
 			enemigos[k] = new Enemigo(100, name, new Herramienta(), tablero);
-			arraypersonajes[k] = enemigos[k] ;
+			arraypersonajes[j] = enemigos[k] ;
 			j++;
 		}
 	}
@@ -243,7 +256,7 @@ public class Partida {
 	
 	//funcion moverse esta llama al tablero y gestiona tmabien la entrada del usuario
 	
-	private void moverse_jugador(Personaje p1) { //pasamos el personaje que queremos que se 
+	private int moverse_jugador(Personaje p1) { //pasamos el personaje que queremos que se 
 		
 		//variables de movimiento en x e y
 		int moversex = 0; 
@@ -283,7 +296,7 @@ public class Partida {
 			 System.out.printf("introduce valores validos para poder moverte");
 		 }
 		}while(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0); // si los valores no son correctos vulvemos a repetir 
-		 tablero.moverse(p1, moversex, moversey); //llamamos a la funcion para moverse de la clase tablero 
+		 return(tablero.moverse(p1, moversex, moversey)); //llamamos a la funcion para moverse de la clase tablero 
 	}
 	private int obtenernumero_de_personajeseroValido(Scanner lector,String tipo, int min, int max) {
 	    int numero_de_personajes;
@@ -302,4 +315,16 @@ public class Partida {
 
 	    return numero_de_personajes;
 	}
+
+	public String toString() {
+	    System.out.println("---- Información de la Partida ----");
+	    System.out.println("Número total de personajes: " + numero_de_personajes);
+	    System.out.println("Número de jugadores: " + numero_de_jugadores);
+	    System.out.println("Número de enemigos: " + numero_de_bots);
+	    System.out.println("Estado del tablero:");
+	    tablero.mostrarTablero(); 
+		return null;
+	}
+
+	
 }
