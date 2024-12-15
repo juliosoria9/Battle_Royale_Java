@@ -1,6 +1,7 @@
 package partida;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import Herramienta.Herramienta;
@@ -297,7 +298,58 @@ public class Partida {
 		 
 	}
 	
-	
+	//funcion moverse esta llama al tablero y mueve a los enemigos de forma aleatoria
+		private int moverse_enemigo(Personaje e1) { //pasamos el personaje que queremos que se 
+			
+			Random numRand = new Random();
+			
+			//variables de movimiento en x e y
+			int moversex = 0; 
+			int moversey = 0;
+			do {
+			 moversex = numRand.nextInt(3); //hace valor random cada vez que entra al bucle entre 0 y 2
+			 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
+			 case 1:
+				 moversex = 1; //derecha
+				 break;
+			 case 2:
+				 moversex = -1; //izquierda
+				 break;
+			 case 0:
+				 
+				 moversex = 0; //nada
+				 break;
+		        default:
+		        	
+		            System.out.println("Opción no reconocida.\n");
+		            break;
+			 }
+
+			 moversey = numRand.nextInt(3); //hace valor random cada vez que entra al bucle entre 0 y 2
+			 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
+			 case 1:
+				 moversey = -1; //arriba
+				 break;
+			 case 2:
+				 moversey = 1; //abajo
+				 break;
+			 case 0:
+				 moversey = 0; //nada
+				 break;
+			 default:
+				  
+		            System.out.println("Opción no reconocida.\n");
+		            break;
+			 }
+			 if(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0){ // comprobamos los valores para soltar el mensaje de error
+				 System.out.printf("introduce valores validos para poder moverte");
+			 }
+			}while(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0);
+			// si los valores no son correctos vulvemos a repetir
+			int num = tablero.moverse(e1, moversex, moversey);
+			 return(num); //llamamos a la funcion para moverse de la clase tablero y segun lo que devuelva controlamos el error
+			 
+		}
 
 	private int obtenernumero_de_personajeseroValido(Scanner lector,String tipo, int min, int max) {
 	    int numero_de_personajes;
