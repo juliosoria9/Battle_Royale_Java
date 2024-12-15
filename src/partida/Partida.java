@@ -31,7 +31,6 @@ public class Partida {
 	public void inicio()
 	{
 		
-
 		//PARTIDA
 		System.out.println("----------------BIENVENIDO AL BATTLE ROYALE------------------");
 		System.out.println("");
@@ -63,9 +62,11 @@ public class Partida {
 	    
 	    System.out.println("es hora de crear los personajes");
 	    crearpersonajes();
+	    System.out.println("personajes creados con exito");
+	    System.out.println("\n");
 	    
 		//----------------------------------------------------dificultad----------------------------------------------------------------------------------
-	    boolean control;
+	    boolean control = false;
 		do {
 			System.out.println("Introduzca la dificultad:");
 			System.out.println("Facil: 1\nMedio: 2\nDificil: 3");
@@ -92,12 +93,20 @@ public class Partida {
 				
 			}
 		}while(control == false);
+		//---------------------------------------------------- iniciamos el tablero y metemos los personajes ----------------------------------------------------
 		
+		tablero.inicializa_tablero(numero_de_personajes);
+		tablero.setarraypersonajes(arraypersonajes);
+		tablero.meterPersonajes();
 		
-		
+		//----------------------------------------------------principio partida----------------------------------------------------------------------------------
+		turno();
 	}
 	
-	
+	public void turno() {
+		System.out.println("inicio de turno");
+		tablero.mostrarTablero();
+	}
 	
 	
 	public void crearpersonajes() {
@@ -105,16 +114,15 @@ public class Partida {
 		int j = 0;
 		for(int i = 1; i < numero_de_jugadores+1; i++) //crea los jugadores les asigna un arma automaticamnete he imprime el arma
 		{
-			System.out.println("introduce el nombre del jugador: " + i);
+			System.out.println("introduce el nombre del jugador" + i +":");
 			 name = lector.next();
 			jugadores[i-1] = new Jugador(100, name, new Herramienta(), tablero); //instanciamos al jugador pasandole vida nombre y la herramienta (que se crea en el propio constructor)
-			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i].getarma().toString());
+			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getarma().toString());
 			arraypersonajes[j] = jugadores[i-1] ;
 			j++;
 		}
 		for(int i = 0; i < numero_de_bots; i++) //crea los bots les asigna un arma automaticamnete he imprime el arma
 		{
-			System.out.println("introduce el nombre del jugador: " + i);
 			 name = ("bot " + i);
 			enemigos[i] = new Enemigo(100, name, new Herramienta(), tablero);
 			arraypersonajes[j] = enemigos[i] ;
@@ -129,7 +137,7 @@ public class Partida {
 	public void dificultad_facil() {
 		for(int i = 0; i < numero_de_jugadores; i++)
 		{
-			int vidaMod = (int) ((int)jugadores[i].getVida()*1.6);
+			int vidaMod = (int) ((int)jugadores[i].getVida()*1.3);
 			jugadores[i].setVida(vidaMod);
 		}
 		
@@ -151,7 +159,7 @@ public class Partida {
 	}
 	
 	public void dificultad_dificil() {
-		//TODO llamar a crear_personajes y pasarle el multiplicador de vida para la dificultad
+		
 		//No se modifica la vida del jugador se deja la de base
 		
 		for(int i = 0; i < numero_de_bots; i++)
@@ -164,159 +172,17 @@ public class Partida {
 	
 	
 						
-							/*crear_personajes(numero_de_personajes, strDificultad, tablero, jugadores, enemigos); //funcion para inicializar personajes
-							tablero.mostrarTablero();//muestra el tablero inicial
 							
-							while(controlPartida == true)
-							{
-								turno(numero_de_personajes, jugadores, enemigos, lector,tablero);
-								controlPartida = CheckPersonajes(jugadores,enemigos);
-							}
-							
-							if (jugadoresVivos(jugadores)) {
-					            System.out.println("¡Habéis ganado!");
-					        } else if (enemigosVivos(enemigos)) {
-					            System.out.println("¡Habéis perdido!");
-					        }*/
 	
-/*
-	public void crear_personajes(int dificultad, int vida) { // dificultad puede ser un multiplicador de vida ejemplo 1.2 * 100 = 120 de vida eso en medio en dificil un *1.6 o algo asi
 		
-		for (int i = 0; i < numero_de_personajes; i++)
-		{
-			System.out.println("Elige tu tipo de personaje:");
-			System.out.println("Guerrero(por defecto): 1\nMago: 2\nArquero: 3");
-			int tipo = lector.nextInt();
-			System.out.println("");
-			
-			String nombre=null;
-			boolean nombreValido=false;
-			
-			while(!nombreValido) {
-				try {
-					System.out.println("Introudce el nombre de tu personaje:");
-					nombre = lector.next();
-					
-					if(nombre==null || nombre.length()==0) {
-						throw new Exception("El campo del nombre no puede estar vacio");
-					}
-					if(nombre.length()>20) {
-						throw new Exception("El nombre es muy largo( maximo 20 caracteres)");
-					}
-					
-					nombreValido=true;
-				}catch(Exception e) {
-					System.out.println("Error");
-				}
-				
-			}
-			
-			System.out.println("");
-			
-			//hacer enumero_de_personajes para el control de tipo
-			//modificar para pasar el arma directamente en vez del nombre, aunque estaria bien si se puede mantener armas similares a esas para el inicio para diferenciar los 3 tipos de personaje
-			if(tipo == 1)//guerrero
-			{
-				jugadores[i] = new Jugador(100, nombre, "espada", 0, 0, tablero); //corto alcance mucha fuerza, vida estandar
-			}else if(tipo == 2)//mago
-			{
-				jugadores[i] = new Jugador(125, nombre, "varita", 0, 0, tablero); //corto alcance poca fuerza, más vida
-			}else if(tipo == 3)//arquero
-			{
-				jugadores[i] = new Jugador(75, nombre, "arco", 0, 0, tablero); //largo alcance, poca vida
-			}else//por defecto
-			{
-				jugadores[i] = new Jugador(100, nombre, "espada", 0, 0, tablero); //por defecto
-			}
-        }
-		
-		//Crea enemigos
-		for(int i = 0; i < numero_de_personajes; i++)
-		{
-			//TODO pasarle arma donde esta null
-			enemigos[i] = new Enemigo(100, null, "Enemigo" + (i + 1), 0, 0, tablero);//inicializacion del enemigo
-		}
-		
-		//hacer enmun enum_dificultad para las dificultades
-		if(dificultad == 1)
-		{
-			dificultad_facil();
-		}else if(dificultad == 2)
-		{
-			dificultad_media();
-		}
-		else if(dificultad == 3)
-		{
-			dificultad_dificil();
-		}else
-		{
-			dificultad_media();
-		}
-		
-		//tablero.setarraypersonajes();
-		tablero.meterPersonajes();
-		
-	}
-	/*
-	private void turno(int numero_de_personajes, Jugador jugadores[], Enemigo enemigos[],Scanner lector,Tablero tablero)
-	{
-		Personaje oponente; //se declara como tipo personaje para que valga para ambos
-		
-		for(int i = 0; i < numero_de_personajes; i++)
-		{
-			//turno player i
-			moverse(jugadores[i],lector,tablero);
-			oponente = tablero.atacar(jugadores[i]); 				//esto va a devolver un array donde estan los jugadores a su alcance
-			if(oponente != null)//&& tablero.distancia(jugadores[i],oponente)<=3)
-			{
-				jugadores[i].makeDamage(oponente.getVida()); //si puede atacar ataca
-				//oponente = null; //se reseta la variable para el siguiente movimiento
-				oponente.CheckDeath();
-			}
-			
-			//turno enemy i
-			moverse(enemigos[i],lector,tablero); //TODO implementar sistemas de bots
-			
-			oponente = tablero.atacar(enemigos[i]); //esto va a devolver un array donde estan los jugadores a su alcance
-			if(oponente != null)//&& tablero.distancia(jugadores[i],oponente)<=3)
-			{
-				jugadores[i].makeDamage(oponente.getVida()); //si puede atacar ataca
-				//oponente = null; //se reseta la variable para el siguiente movimiento
-				oponente.CheckDeath();
-			}
-		}
-	}
 	
-	/*
-	//comprueba que aun queden enemigos o jugadores
-	private boolean CheckPersonajes(Jugador[] jugadores , Enemigo[] enemigos)
-	{
-		// TODO Auto-generated method stub
-		return jugadoresVivos(jugadores) && enemigosVivos(enemigos);//
-	}
-	//comprueba si hay jugadores vivos
-	private boolean jugadoresVivos(Jugador[] jugadores) {
-		for(int i=0;i<jugadores.length;i++) {
-			if(jugadores[i] != null && jugadores[i].getVida()>0) {
-				return true;
-			}
-		}
-		return false;
-	}
-	//comprueba si hay enemigos vivs
-	private boolean enemigosVivos(Enemigo[] enemigos) {
-		for(int i = 0; i < enemigos.length; i++) {
-            if (enemigos[i] != null && enemigos[i].getVida()>0) {
-				return true;
-			}
-		}
-		return false;
-	}
+	
+	
 	
 	
 	//funcion moverse esta llama al tablero y gestiona tmabien la entrada del usuario
 	
-	private void moverse(Personaje p1,Scanner lector,Tablero tablero) { //pasamos el personaje que queremos que se mueva el escaner y el tablero
+	private void moverse_jugador(Personaje p1) { //pasamos el personaje que queremos que se 
 		
 		//variables de movimiento en x e y
 		int moversex = 0; 
@@ -357,7 +223,7 @@ public class Partida {
 		 }
 		}while(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0); // si los valores no son correctos vulvemos a repetir 
 		 tablero.moverse(p1, moversex, moversey); //llamamos a la funcion para moverse de la clase tablero 
-	}*/
+	}
 	private int obtenernumero_de_personajeseroValido(Scanner lector,String tipo, int min, int max) {
 	    int numero_de_personajes;
 	    boolean valido = false;
