@@ -34,8 +34,26 @@ public class Herramienta {
 		} catch (IOException e) {  //llamamos a la funcion de leer datos 
 			System.out.println("error al implementar datos del fichero arma");
 		}
+    	crear_arma();
+    }
+    public Herramienta(int aumento_de_daño) {
+    	
+    	try {
+			leerdatos();
+		} catch (IOException e) {  //llamamos a la funcion de leer datos 
+			System.out.println("error al implementar datos del fichero arma");
+		}
+    	crear_arma();
+    	if((daño = daño + aumento_de_daño) <=0) {
+    		daño = 1;
+    	}
     	
     	
+    	try {
+			leerdatos();
+		} catch (IOException e) {  //llamamos a la funcion de leer datos 
+			System.out.println("error al implementar datos del fichero arma");
+		}
     	crear_arma();
     }
     public void leerdatos() throws IOException { //lee el archivo y guarda en los arrayList
