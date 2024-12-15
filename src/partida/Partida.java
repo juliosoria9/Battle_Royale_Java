@@ -269,4 +269,16 @@ public class Partida {
 
 	    return numero_de_personajes;
 	}
+
+	public String toString() {
+	    System.out.println("---- Información de la Partida ----");
+	    System.out.println("Número total de personajes: " + numero_de_personajes);
+	    System.out.println("Número de jugadores: " + numero_de_jugadores);
+	    System.out.println("Número de enemigos: " + numero_de_bots);
+	    System.out.println("Estado del tablero:");
+	    tablero.mostrarTablero(); 
+		return null;
+	}
+
+	
 }
