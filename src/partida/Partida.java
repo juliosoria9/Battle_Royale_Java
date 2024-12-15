@@ -145,35 +145,30 @@ public class Partida {
 			System.out.println("\nintroduce el nombre del jugador" + i +":");
 			 name = lector.next();
 			System.out.println("\nElige el tipo:");
-			System.out.println("Guerrero: 1 (por defecto) / Mago: 2 / Asesino: 3");
+			System.out.println("Guerrero: 1 (por defecto) / Tanque: 2 / Asesino: 3");
 			int tipo = lector.nextInt();
 			switch(tipo)
 			{
 			case 1:
 				jugadores[i-1] = new Jugador(100, name, new Herramienta(10), tablero); //instanciamos al jugador pasandole vida nombre y la herramienta (que se crea en el propio constructor)
-				System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getarma().toString());
-				arraypersonajes[j] = jugadores[i-1] ;
-				j++;
+				System.out.println("\nHas elegido guerrero tienes 100 de vida y +10 de daño en tus armas");
 				break;
 			case 2:
 				jugadores[i-1] = new Jugador(150, name, new Herramienta(-10), tablero); //instanciamos al jugador pasandole vida nombre y la herramienta (que se crea en el propio constructor)
-				System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getarma().toString());
-				arraypersonajes[j] = jugadores[i-1] ;
-				j++;
+				System.out.println("\nHas elegido tanque tienes 150 de vida y -10 de daño en tus armas");
 				break;
 			case 3:
-				jugadores[i-1] = new Jugador(50, name, new Herramienta(20), tablero); //instanciamos al jugador pasandole vida nombre y la herramienta (que se crea en el propio constructor)
-				System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getarma().toString());
-				arraypersonajes[j] = jugadores[i-1] ;
-				j++;
+				jugadores[i-1] = new Jugador(50, name, new Herramienta(30), tablero); //instanciamos al jugador pasandole vida nombre y la herramienta (que se crea en el propio constructor)
+				System.out.println("\nHas elegido guerrero tienes 50 de vida y +30 de daño en tus armas");
 				break;
 			default:
 				jugadores[i-1] = new Jugador(100, name, new Herramienta(10), tablero); //instanciamos al jugador pasandole vida nombre y la herramienta (que se crea en el propio constructor)
-				System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getarma().toString());
-				arraypersonajes[j] = jugadores[i-1] ;
-				j++;
 			break;
 			}
+			
+			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getarma().toString());
+			arraypersonajes[j] = jugadores[i-1] ;
+			j++;
 		}
 		for(int k = 0; k < numero_de_bots; k++) //crea los bots les asigna un arma automaticamnete he imprime el arma
 		{
