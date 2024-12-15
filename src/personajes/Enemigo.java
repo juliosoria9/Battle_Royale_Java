@@ -17,7 +17,9 @@ public class Enemigo extends Personaje{
 		tablero.asignarValor(getX(), getY(), 0);
 		System.out.println("El enemigo " + getNombre() + " ha muerto");	
 	}
-	
+	public void setArma(Herramienta nuevaArma) {
+		this.arma=nuevaArma;
+	}
 
 	
 }

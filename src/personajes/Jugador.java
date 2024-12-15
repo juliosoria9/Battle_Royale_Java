@@ -19,5 +19,10 @@ public class Jugador extends Personaje {
 	public void setArma(Herramienta nuevaArma) {
 		this.arma=nuevaArma;
 	}
-	
+	public void Die()
+	{
+		
+		tablero.asignarValor(getX(), getY(), 0);
+		System.out.println("El enemigo " + getNombre() + " ha muerto");	
+	}
 }

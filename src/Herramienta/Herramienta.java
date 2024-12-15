@@ -34,8 +34,26 @@ public class Herramienta {
 		} catch (IOException e) {  //llamamos a la funcion de leer datos 
 			System.out.println("error al implementar datos del fichero arma");
 		}
+    	crear_arma();
+    }
+    public Herramienta(int aumento_de_daño) {
+    	
+    	try {
+			leerdatos();
+		} catch (IOException e) {  //llamamos a la funcion de leer datos 
+			System.out.println("error al implementar datos del fichero arma");
+		}
+    	crear_arma();
+    	if((daño = daño + aumento_de_daño) <=0) {
+    		daño = 1;
+    	}
     	
     	
+    	try {
+			leerdatos();
+		} catch (IOException e) {  //llamamos a la funcion de leer datos 
+			System.out.println("error al implementar datos del fichero arma");
+		}
     	crear_arma();
     }
     public void leerdatos() throws IOException { //lee el archivo y guarda en los arrayList
@@ -86,10 +104,19 @@ public class Herramienta {
     
     
     
-    public String toString() { //metodo toString
-        return ("     arma:\n nombre: "+nombre +"\n el daño es: "+ daño +"\n la distancia de ataque es: "+ distancia_ataque);
+    @Override
+    public String toString() {
+        return "Arma:\nNombre: " + nombre + "\nDaño: " + daño + "\nDistancia de ataque: " + distancia_ataque;
     }
-
+    
+    
+    //para comprobar si dos herramientas son iguales 
+     public int compareTo(Herramienta otro) {
+        return Integer.compare(this.daño, otro.daño);
+        //devuelve un valor negativo si el primer entero es menor que el segundo
+        //devuelve un cero si ambos enteros son iguales.
+       //devuelve un valor positivo si el primer entero es mayor que el segundo
+    }
     
      //getters no hay setters ya que el arma no deve poder cambiarse
     public String getNombre() {
