@@ -156,7 +156,7 @@ public class Tablero<asignarValor> {
     	
     	
     	if( nuevaX >= 0 && nuevaX < tablero.length && nuevaY >= 0 && nuevaY < tablero[0].length) {
-        		 if (obtenerValor(nuevaX, nuevaY) == 0) {
+        		 if (obtenerValor(nuevaX, nuevaY) == 0 || (nuevaX == p1.getX() && nuevaY == p1.getY())) { //comprueba o que este vacia o que sea el jugador que esta dedentro
         	            // Actualizamos la posición del personaje
         			 asignarValor_con_personaje(p1,0);
         	            p1.setX(nuevaX);
@@ -164,11 +164,16 @@ public class Tablero<asignarValor> {
         	            
         	            return 1; // Movimiento exitoso
         	        } else {
-        	            System.out.println("Casilla ocupada.");
+        	        	if(p1 instanceof Jugador) {
+        	        		System.out.println("Casilla ocupada.");
+        	        	}
         	            return -1; // Error: Casilla ocupada
         	        }
         	    } else {
-        	        System.out.println("Coordenadas fuera de rango.");
+        	    	if(p1 instanceof Jugador) { // no suelta el emnsaje si es un b
+        	    		System.out.println("Coordenadas fuera de rango.");
+    	        	}
+        	        
         	        return -1; // Error: Fuera de rango
     	
         	    }
@@ -198,7 +203,7 @@ public class Tablero<asignarValor> {
         for (int i = -distancia; i <= distancia; i++) { 
             for (int j = -distancia; j <= distancia; j++) {
                 // Coordenadas de la casilla a inspeccionar
-                int nx = p1.getY() + i;
+                int nx = p1.getX() + i;
                 int ny = p1.getY() + j;
 
                 // Verificar si las coordenadas están dentro de los límites de la matriz
@@ -206,11 +211,9 @@ public class Tablero<asignarValor> {
                     // Verificamos si hay un personaje en esa casilla
                     if (obtenerValor(nx, ny) == 1 || obtenerValor(nx, ny) == 2) { // Si la casilla contiene un 1 o 2 (personajes) con el 1 basta pero asi nos quitamos de errores
                         Personaje personaje = cords_a_personaje(nx, ny); // Obtener personaje de las coordenadas
-                        if (personaje != null) {
+                        if (personaje != null && personaje != p1) {
                             personajes_a_atacar.add(personaje); // Agregar el personaje a la lista de atacables
-                        } else {
-                            System.out.println("Error: No se encontró personaje en las coordenadas (" + nx + ", " + ny + ")");
-                        }
+                        } 
                     }
                 }
             }

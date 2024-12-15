@@ -87,8 +87,8 @@ public abstract class Personaje {
     public String toString() {
         return "---------Personaje-----------\n "
         		+ "nombre: " +nombre
-        		+ "vida: " + vida
-        		+ "arma: " + arma.toString();
+        		+ "\n vida: " + vida
+        		+ "\n"+ "-------\n"+arma.toString();
         				
     }
 }
