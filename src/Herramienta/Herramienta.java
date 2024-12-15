@@ -1,94 +1,113 @@
 package Herramienta;
 
+import java.util.Random;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Herramienta {
     private String nombre;
-    private int bonus;
-    private String tipo; //corta, larga, mágica
-    private int tipoEntero; //1=corta, 2=mágica, 3=larga
+    private int daño;
+    private int distancia_ataque;
+    File archivo = new File("src/Herramienta/herramientas.txt");
+    Scanner s;
 
-    public Herramienta(String nombre, int bonus, String tipo, int tipoEntero) {
+    ArrayList<String> nombres = new ArrayList<String>();
+    ArrayList<Integer> danios = new ArrayList<Integer>();
+    ArrayList<Integer> distancias = new ArrayList<Integer>();
+    
+    
+    public Herramienta(String nombre, int daño, int distancia_de_ataque) { //constructor si queremos hacer algo por defecto
         this.nombre = nombre;
-        this.bonus = bonus;
-        this.tipo = tipo;
-        this.tipoEntero = tipoEntero;
+        this.daño = daño;
+        this.distancia_ataque = distancia_de_ataque;
     }
+    public Herramienta() {
+    	
+    	
+    	
+    	try {
+			leerdatos();
+		} catch (IOException e) {  //llamamos a la funcion de leer datos 
+			System.out.println("error al implementar datos del fichero arma");
+		}
+    	
+    	
+    	crear_arma();
+    }
+    public void leerdatos() throws IOException { //lee el archivo y guarda en los arrayList
+    	String linea;
+    	try {
+    		s = new Scanner(archivo); // creamos el escaner del fichero
+    		while(s.hasNextLine()) {
+    			
+    			//leemos cada linea quitamos posibles espacios y los metemos en elos arraylist
+    			 linea = s.nextLine();
+    		 	nombres.add(linea.trim());
+    			 linea = s.nextLine();
+    			 danios.add(Integer.parseInt(linea.trim()));
+    			 linea = s.nextLine();
+    			 distancias.add(Integer.parseInt(linea.trim()));
+    		}
+    		s.close();
+    		
+    		
+    		
+    	}catch (FileNotFoundException e) {
+    		System.out.println("Intentando acceder al archivo en la ruta: " + archivo.getAbsolutePath()); // nos dice la ruta en la que falla
+    	    System.out.println("Error: El archivo no se encontro verifica la ruta."); //mensaje de error
+     }
+    }
+    public void mostrartxt() {
+    	if (nombres.size() != danios.size() || nombres.size() != distancias.size()) {
+            System.out.println("Error: Las listas no tienen el mismo tamaño."); // cada elemento tiene que tener su pareja en su otro array con el indice
+            return;
+        }
 
-    // Generar un arma desde un tipo de jugador
-    public static Herramienta generarArmaPorTipo(String tipo) {
-        switch (tipo.toLowerCase()) {
-            case "guerrero":
-                return new Herramienta("Espada", 10, "corta", 1);
-            case "mago":
-                return new Herramienta("Varita", 8, "mágica", 2);
-            case "arquero":
-                return new Herramienta("Arco", 5, "larga", 3);
-            default:
-                return new Herramienta("Arma desconocida", 0, "ninguno", 0);
+        // Imprimimos los encabezados
+        System.out.println("Arma\t\tDaño\tAlcance");
+        System.out.println("--------------------------------");
+
+        // Iteramos sobre los elementos
+        for (int i = 0; i < nombres.size(); i++) { // nos muestra las armas en forma de columna
+            System.out.printf("%-10s\t%-5d\t%-5d\n", nombres.get(i), danios.get(i), distancias.get(i));
         }
     }
-
-    @Override
-    public String toString() {
-        return "Herramienta{" +
-               "nombre='" + nombre + '\'' +
-               ", bonus=" + bonus +
-               ", tipo='" + tipo + '\'' +
-               ", tipoEntero=" + tipoEntero +
-               '}';
+    public void crear_arma() { //Selenccionamos un numero aleatorio y nos mete en las stats los valores correspondientes de cada array
+    	Random random = new Random();
+    	 int numero = random.nextInt(nombres.size());
+         this.nombre = nombres.get(numero);
+         this.daño = danios.get(numero);
+         this.distancia_ataque = distancias.get(numero);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    public String toString() { //metodo toString
+        return ("     arma:\n nombre: "+nombre +"\n el daño es: "+ daño +"\n la distancia de ataque es: "+ distancia_ataque);
     }
 
-
+    
+     //getters no hay setters ya que el arma no deve poder cambiarse
     public String getNombre() {
         return nombre;
     }
 
-    public int getBonus() {
-        return bonus;
+    public int getdaño() {
+        return daño;
     }
 
-    public String getTipo() {
-        return tipo;
+    public int getdistancia_de_ataque() {
+    	return distancia_ataque;
     }
 
-    public int getTipoEntero() {
-        return tipoEntero;
-    }
-
-    // Setters
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setBonus(int bonus) {
-        this.bonus = bonus;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public void setTipoEntero(int tipoEntero) {
-        this.tipoEntero = tipoEntero;
-    }
-
-   //devuelve el daño 
-    public int getDamage() {
-        return this.bonus; //el daño es igual al bonus 
-    }
-
-    //devuelve la distancia de ataque basada en el tipo de herramienta
-    public int getDistanciaAtaque() {
-        //la distancia depende de la herramienta 
-        switch (this.tipo) {
-            case "corta": 
-                return 1; //distancia corta devuelve un 1
-            case "larga": 
-                return 3; //distancia larga devuelve un 3
-            case "magica": 
-                return 2; //distancia media(magica) devuelve un 2
-            default: 
-                return 0;
-        }
-    }
 
 }

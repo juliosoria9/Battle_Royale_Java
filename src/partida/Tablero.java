@@ -124,7 +124,7 @@ public class Tablero {
     public Personaje[] atacar(Personaje p1) {
     	Personaje array[] = new Personaje[10];
     	int w = 0;//numero del array donde guardar los jugadores
-    	int distancia = p1.getarma().getDistanciaAtaque();
+    	int distancia = p1.getarma().getdistancia_de_ataque();
     	for (int i = -distancia; i <= distancia; i++) { //buscamos en un radio a su alrededor
             for (int j = -distancia; j <= distancia; j++) {
                 // Coordenadas de la casilla a inspeccionar

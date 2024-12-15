@@ -30,10 +30,8 @@ public class Partida {
 	
 	public void inicio()
 	{
-		//maximos y minimos de personajes al iniciar la partida
 		
-		
-		
+
 		//PARTIDA
 		System.out.println("----------------BIENVENIDO AL BATTLE ROYALE------------------");
 		System.out.println("");
@@ -61,9 +59,10 @@ public class Partida {
 	
 	    
 	    
-	    //---------------------------------------------------------------------------------------------------------------------------------------------
+	    //---------------------------------------------------CREACION DE PERSONAJES--------------------------------------------------------------------
 	    
-	    
+	    System.out.println("es hora de crear los personajes");
+	    crearpersonajes();
 	    
 		//----------------------------------------------------dificultad----------------------------------------------------------------------------------
 	    boolean control;
@@ -98,6 +97,33 @@ public class Partida {
 		
 	}
 	
+	
+	
+	
+	public void crearpersonajes() {
+		String name;
+		int j = 0;
+		for(int i = 1; i < numero_de_jugadores+1; i++) //crea los jugadores les asigna un arma automaticamnete he imprime el arma
+		{
+			System.out.println("introduce el nombre del jugador: " + i);
+			 name = lector.next();
+			jugadores[i-1] = new Jugador(100, name, new Herramienta(), tablero); //instanciamos al jugador pasandole vida nombre y la herramienta (que se crea en el propio constructor)
+			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i].getarma().toString());
+			arraypersonajes[j] = jugadores[i-1] ;
+			j++;
+		}
+		for(int i = 0; i < numero_de_bots; i++) //crea los bots les asigna un arma automaticamnete he imprime el arma
+		{
+			System.out.println("introduce el nombre del jugador: " + i);
+			 name = ("bot " + i);
+			enemigos[i] = new Enemigo(100, name, new Herramienta(), tablero);
+			arraypersonajes[j] = enemigos[i] ;
+			j++;
+		}
+	}
+	
+	
+	
 	//modifican la vida de jugadores y enemigos en funcion de la dificultad
 	//se hace un setter de la vida porque cada tipo de personaje tiene una vida base distinta (porque hay que tener 3 tipos de personajes)
 	public void dificultad_facil() {
@@ -110,7 +136,7 @@ public class Partida {
 		//No se modifica la vida de los enemigos, se deja la de base
 	}
 	public void dificultad_media() {
-		//TODO llamar a crear_personajes y pasarle el multiplicador de vida para la dificultad
+		//llamar a crear_personajes y pasarle el multiplicador de vida para la dificultad
 		for(int i = 0; i < numero_de_jugadores; i++)
 		{
 			int vidaMod = (int) ((int)jugadores[i].getVida()*1.4);
@@ -153,7 +179,7 @@ public class Partida {
 					            System.out.println("¡Habéis perdido!");
 					        }*/
 	
-
+/*
 	public void crear_personajes(int dificultad, int vida) { // dificultad puede ser un multiplicador de vida ejemplo 1.2 * 100 = 120 de vida eso en medio en dificil un *1.6 o algo asi
 		
 		for (int i = 0; i < numero_de_personajes; i++)

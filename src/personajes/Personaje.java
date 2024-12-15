@@ -1,7 +1,6 @@
 package personajes;
 
 import Herramienta.Herramienta;
-import Herramienta.menuHerramientas;
 import partida.Tablero;
 
 public abstract class Personaje {
@@ -20,18 +19,9 @@ public abstract class Personaje {
 		this.nombre = nombre;
 		this.tablero = tablero;
 	}
-	//TODO se le pasa 
-	 public int makeDamage(int enemyVida) {
-	        //aplica  el daño usando el bonus de la herramienta equipada
-	        if (arma != null) {
-	        	usarArma(null);
-	            //reduce la vida del enemigo
-	            enemyVida -= arma.getDamage();
-	        }
-	        return enemyVida;
-	}
 	
-	public void takeDamage(int enemyDamage) 
+	
+	public void takeDamage(int enemyDamage) // aqui se hace daño se le pasa el daño del arma del enemigo de forma que en el main es p1.takeDamage(p2.getarma().getdaño());
 	{
 		vida -= enemyDamage;
 		if(vida < 0)
@@ -51,7 +41,7 @@ public abstract class Personaje {
 	public void Die()
 	{
 		System.out.println("El jugador " + nombre + " ha muerto");	
-		tablero.asignarValor(x, y, 0);
+		tablero.asignarValor(x, y, 0); // se pone un 0 que significa que ha muerto
 	}
 	
 	//Getters de variables locales 
@@ -93,57 +83,14 @@ public abstract class Personaje {
 		this.y = y;
 	}
 	
-	//Metodos para arma
-		//eleccion de arma al inicio de partida para el jugador 
-	public void setArmaDesdeMenu(String rutaArchivo) {
-	    Herramienta nuevaArma = menuHerramientas.seleccionarHerramienta(rutaArchivo);
-	    if (nuevaArma != null) {
-	        this.arma = nuevaArma;
-	        System.out.println(nombre + " ha equipado: " + nuevaArma);
-	    } else {
-	        System.out.println("No se pudo asignar un arma.");
-	    }
-	}
-
 	
-	//TODO aqui hay que cambiarlo todo no es eficiente se deve hacer en el constructor de forma que el arma se mete en el main a la hora de crear los personajes
-	//da igual que sean players o enemigos se crean de la misma manera lo unico que los enemigos (bots) tenemos que gestionar nosotros el tema de los inputs
-	
-	
-	// Getter para el arma
-    public Herramienta getArma() {
-        return arma;
-    }
-
-    @Override
+   
     public String toString() {
-        return "Personaje{" +
-               "nombre='" + nombre + '\'' +
-               ", vida=" + vida +
-               ", arma=" + arma +
-               '}';
+        return "---------Personaje-----------\n "
+        		+ "nombre: " +nombre
+        		+ "vida: " + vida
+        		+ "arma: " + arma.toString();
+        				
     }
-    public void usarArma(Personaje objetivo) {
-        if (arma != null) {
-            if (objetivo != null) {
-                int danio = arma.getDamage(); // daño del arma
-                objetivo.takeDamage(danio); //daño al objetivo
-                System.out.println(nombre + " atacó a " + objetivo.getNombre() + " con " + arma + ", causando " + danio + " puntos de daño.");
-
-                //ver si ha muerto 
-                if (objetivo.getVida() <= 0) {
-                    System.out.println(objetivo.getNombre() + " ha sido derrotado.");
-                }
-            } else {
-                System.out.println("No se ha seleccionado un objetivo para atacar.");
-            }
-        } else {
-            System.out.println("No se ha equipado un arma.");
-        }
-    }
-	public void usarArma() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
+    
