@@ -110,73 +110,19 @@ public abstract class Personaje {
 	//da igual que sean players o enemigos se crean de la misma manera lo unico que los enemigos (bots) tenemos que gestionar nosotros el tema de los inputs
 	
 	
-	/*//elegir  arma según el tipo (para enemigos)  usando un String
-	public static Herramienta setArma(String tipo) {
-	    Herramienta armaSet;
-	    switch (tipo) { 
-	        case "espada":
-	            armaSet = new Herramienta("Espada", 10, "corta",1);
-	            break;
-	        case "arco":
-	            armaSet = new Herramienta("Arco", 5, "larga",3);
-	            break;
-	        case "varita":
-	            armaSet = new Herramienta("Varita", 8, "corta",2);
-	            break;
-	        default:
-	            armaSet = new Herramienta("Arma desconocida", 0, "ninguno",0);
-	            System.out.println("Tipo de arma no reconocido");
-	            break;
-	    }
-	    System.out.println("Arma seleccionada para enemigo: " + armaSet);
-	    return armaSet;
-	}
+	// Getter para el arma
+    public Herramienta getArma() {
+        return arma;
+    }
 
-
-	 
-	//cambio de arma al inicio de la partida (según tipo de jugador)
-	public static Herramienta resetArma(String tipo) {
-	    Herramienta armaReset;
-	    switch (tipo) {
-	        case "corta":
-	            armaReset = new Herramienta("Espada", 10, "corta",1);
-	            break;
-	        case "larga":
-	            armaReset = new Herramienta("Arco", 5, "larga",3);
-	            break;
-	        case "mágica":
-	            armaReset = new Herramienta("Varita", 8, "corta",2);
-	            break;
-	        default:
-	            armaReset = new Herramienta("Arma desconocida", 0, "ninguno",0);
-	            break;
-	    }
-	    System.out.println("Arma seleccionada para jugador: " + armaReset);
-	    return armaReset;
-	}
-	 
-	// Cambia de arma directamente para enemigo
-	public static Herramienta resetArma(int tipo) {
-	    Herramienta armaReset;
-	    switch (tipo) {
-	        case 1: //tipo 1 - Espada
-	            armaReset = new Herramienta("Espada", 10, "corta",1);
-	            break;
-	        case 2: //tipo 2 - Arco
-	            armaReset = new Herramienta("Arco", 5, "larga",3);
-	            break;
-	        case 3: //tipo 3 - Varita
-	            armaReset = new Herramienta("Varita", 8, "corta",2);
-	            break;
-	        default: //no vale
-	            armaReset = new Herramienta("Arma desconocida", 0, "ninguno",0);
-	            System.out.println("Tipo de arma no reconocido");//se asigna predeterminadamente
-	            break;
-	    }
-	    System.out.println("El arma seleccionada para el eenemigo:" + armaReset);
-	    return armaReset;
-	}
-	 */
+    @Override
+    public String toString() {
+        return "Personaje{" +
+               "nombre='" + nombre + '\'' +
+               ", vida=" + vida +
+               ", arma=" + arma +
+               '}';
+    }
 	 public void usarArma() {
 	        if (arma != null) {
 	            //arma.usar(); //TODO es el personaje o enemigo el que deve usar el arma contra otro el arma no se puede usar a si misma de forma que cuando se ataque se coja el daño del arma

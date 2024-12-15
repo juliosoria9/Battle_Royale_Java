@@ -10,11 +10,9 @@ public class Jugador extends Personaje {
 	
 	private Herramienta arma;
 
-	public Jugador(int vida, String nombre, String tipo, int x, int y, Tablero tablero)
-	{
-		
-		super(vida, setArma(tipo), nombre, tablero);
-		this.tipo = tipo;
+	public Jugador(int vida, String nombre, Herramienta armaInicial, int x, int y, Tablero tablero) {
+		super(vida, armaInicial, nombre, tablero);
+		this.arma = armaInicial; //asignar el arma directamente
 	}
 	
 	
@@ -41,18 +39,4 @@ public class Jugador extends Personaje {
 		this.arma=nuevaArma;
 	}
 	
-	//TODO la funcion de abajo no es dinamica hay que quitarla o adaptarla para que funcione objetos ya creados
-	/*
-	public static Herramienta setArma(String tipo) {
-		switch(tipo) {
-		case "guerrero":
-			return new Herramienta("Espada",10,"corta",1);
-		case "mago":
-			return new Herramienta("Varita",8,"corta",2);
-		case "arquero":
-			return new Herramienta("Arco",5,"larga",3);
-		default:
-			return new Herramienta("No se ha equipado arma",0,"",0);
-		}
-	}*/
 }
