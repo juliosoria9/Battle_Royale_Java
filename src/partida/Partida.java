@@ -11,8 +11,19 @@ import personajes.*;
 public class Partida {
 	
 	//arrays declarados como globales porque todas las funciones tienen que poder acceder a ellos
+	private enum TipoJugador
+	{
+	    GUERRERO(1), 
+	    TANQUE(2), 
+	    ASESINO(3);
 	
-	Scanner lector = new Scanner(System.in);
+	    private final int valor;
+	    TipoJugador(int valor) {
+	        this.valor = valor;
+	    }
+	}
+	
+	private Scanner lector = new Scanner(System.in);
 	int bots_minimos = 2;
 	int bots_maximos = 10;
 	int players_minimos = 1;
@@ -163,6 +174,7 @@ public class Partida {
 				break;
 			default:
 				jugadores[i-1] = new Jugador(100, name, new Herramienta(10), tablero); //instanciamos al jugador pasandole vida nombre y la herramienta (que se crea en el propio constructor)
+				System.out.println("\nHas elegido guerrero tienes 100 de vida y +10 de daño en tus armas");
 			break;
 			}
 			
