@@ -10,35 +10,23 @@ import personajes.*;
 
 public class Partida {
 	
-	//arrays declarados como globales porque todas las funciones tienen que poder acceder a ellos
-	private enum TipoJugador
-	{
-	    GUERRERO(1), 
-	    TANQUE(2), 
-	    ASESINO(3);
-	
-	    private final int valor;
-	    TipoJugador(int valor) {
-	        this.valor = valor;
-	    }
-	}
-	
+	//variables declaradas como globales porque todas/varias funciones tienen que poder acceder a ellas
 	private Scanner lector = new Scanner(System.in);
-	int bots_minimos = 2;
-	int bots_maximos = 10;
-	int players_minimos = 1;
-	int players_maximos = 5;
+	private int bots_minimos = 2;
+	private int bots_maximos = 10;
+	private int players_minimos = 1;
+	private int players_maximos = 5;
 	
 	
-	Tablero tablero = new Tablero();
-	int numero_de_personajes = 0;
-	int numero_de_jugadores = 0;
-	int numero_de_bots = 0;
-	boolean controlPartida = true;
+	private Tablero tablero = new Tablero();
+	private int numero_de_personajes = 0;
+	private int numero_de_jugadores = 0;
+	private int numero_de_bots = 0;
+	private boolean controlPartida = true;
 	
-	Personaje arraypersonajes[];
-	Enemigo enemigos[];
-	Jugador jugadores[];
+	private Personaje arraypersonajes[];
+	private Enemigo enemigos[];
+	private Jugador jugadores[];
 	
 	public void inicio()
 	{
@@ -164,10 +152,15 @@ public class Partida {
 	public void crearpersonajes() {
 		String name;
 		int j = 0;
+		//-------------------------crea jugadores---------------------------
 		for(int i = 1; i < numero_de_jugadores+1; i++) //crea los jugadores les asigna un arma automaticamnete he imprime el arma
 		{
 			System.out.println("\nintroduce el nombre del jugador" + i +":");
-			 name = lector.next();
+			name = lector.next();
+			if(name.isBlank() || name.isEmpty()) //si el nombre esta vacio o no tiene caracteres visibles (es de espacios) le pone al jugador nombre por defecto
+			{
+				name = "jugador" + i;
+			}
 			System.out.println("\nElige el tipo:");
 			System.out.println("Guerrero: 1 (por defecto) / Tanque: 2 / Asesino: 3");
 			int tipo = lector.nextInt();
@@ -195,9 +188,11 @@ public class Partida {
 			arraypersonajes[j] = jugadores[i-1] ;
 			j++;
 		}
+		
+		//-------------------------crea enemigos---------------------------
 		for(int k = 0; k < numero_de_bots; k++) //crea los bots les asigna un arma automaticamnete he imprime el arma
 		{
-			 name = ("bot " + k);
+			name = ("bot " + (k+1));
 			enemigos[k] = new Enemigo(100, name, new Herramienta(), tablero);
 			arraypersonajes[j] = enemigos[k] ;
 			j++;
