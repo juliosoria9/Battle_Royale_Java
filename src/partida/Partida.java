@@ -19,7 +19,7 @@ public class Partida {
 	private int players_maximos = 5;
 	
 	
-	private Tablero tablero = new Tablero();
+	private Tablero<?> tablero = new Tablero<Object>();
 	private int numero_de_personajes = 0;
 	private int numero_de_jugadores = 0;
 	private int numero_de_bots = 0;
@@ -28,6 +28,7 @@ public class Partida {
 	private Personaje arraypersonajes[];
 	private Enemigo enemigos[];
 	private Jugador jugadores[];
+	private String nombreGanador;
 	
 	public void inicio()
 	{
@@ -103,14 +104,40 @@ public class Partida {
 				                                        
 		
 		//----------------------------------------------------principio partida----------------------------------------------------------------------------------
-		turno();
+		
+
+		int i = 0;
+	    while(ultimojugador() == false) {
+	    	turno(i);
+	    	i++;
+	    }
+	    System.out.println( "GANA " + nombreGanador);
+	    
+	   
+		
+		
 	}
-	
-	public void turno() {
+	public boolean ultimojugador() {
+		int num = 0;
+		for(int i = 0; i < arraypersonajes.length; i++) {
+			if (arraypersonajes[i].getVida() <= 0) {
+				num++;
+				nombreGanador = arraypersonajes[i].getNombre();
+			}
+			if(num >= 2) {
+				return false;
+			}
+		}
+		if(num == 1) {
+			return true;
+		}
+		return false;
+	}
+	public void turno(int ronda) {
 		int controlmov= 0;
-		ArrayList<Personaje> pesonajes_a_atacar = new ArrayList<Personaje>();
+		ArrayList<Personaje> personajes_a_atacar = new ArrayList<Personaje>();
 		int elecion_ataque;
-		System.out.println("inicio de turno");
+		System.out.println("inicio de turno numero: " + ronda);
 		tablero.mostrarTablero();
 		//turno de jugadores
 		for(int i = 0;i<numero_de_jugadores;i++) {
@@ -139,43 +166,82 @@ public class Partida {
 			
 			
 			//-------------------------ataque---------------------------
-			//da un warning rarito
-			pesonajes_a_atacar = tablero.atacar(jugadores[i]); //esto devuelve el arraylist con los personajes a los que su arma tiene rango para atacar
-			do {
-				//Esto da un warning rarete
-			tablero.mostrarenemigos(pesonajes_a_atacar,jugadores[i]); //muestra a los enemigos a los que puedes atacar
-			//mayores de 3 porque a los que enemigos a los que no se puede atacar se representan con 1 y los jugadores con 2
-			System.out.println("estos son los jugadores que puedes atacar (los de 3 para arriba) escribe el numero del jugador a quien quieras atacar que este en tu rango");
-			elecion_ataque = lector.nextInt(); //elige el enemigo al que atacar
+			System.out.println("tu arma tiene "+jugadores[i].getArma().getdistancia_de_ataque()+" de distancia de ataque\n\n estos son las posibles victimas");
 			
-			//has puesto que todo valga, porque te vale todo lo menor o todo lo mayor, en otras palabras todo menos =
-			//esto creo que o es el ultimo o no funciona, porque size te da el tamaño maximo
-			if(elecion_ataque < pesonajes_a_atacar.size() || elecion_ataque > pesonajes_a_atacar.size()) {
-				System.out.println("el enemigo introducido no es correcto o no esta disponible");
+			personajes_a_atacar = tablero.atacar(jugadores[i]); //esto devuelve el arraylist con los personajes a los que su arma tiene rango para atacar
+			if(personajes_a_atacar.size() == 0 ) {
+				System.out.println("no tienes a nadie a rango por lo que no poedes atacar");
+			}else {
+			
+				/*for(int h = 0; i<= personajes_a_atacar.size();h++) { //mostrar las posibles victimas
+					System.out.println("-----------------este jugador esta representado con: "+ (h+3) +" en el tablero de juego---------------------");
+					System.out.println(personajes_a_atacar.get(h).toString());
+				}*/
+				
+				do {
+				
+				tablero.mostrarenemigos(personajes_a_atacar,jugadores[i]); //muestra a los enemigos a los que puedes atacar
+				//mayores de 3 porque a los que enemigos a los que no se puede atacar se representan con 1 y los jugadores con 2
+				System.out.println("estos son los jugadores que puedes atacar (los de 3 para arriba) escribe el numero del jugador a quien quieras atacar que este en tu rango");
+				elecion_ataque = lector.nextInt(); //elige el enemigo al que atacar
+	//ataque//	
+	//ataque//	//has puesto que todo valga, porque te vale todo lo menor o todo lo mayor, en otras palabras todo menos =
+				//esto creo que o es el ultimo o no funciona, porque size te da el tamaño maximo
+				if(elecion_ataque -3 >= personajes_a_atacar.size() || elecion_ataque -3 >= personajes_a_atacar.size()) {
+					System.out.println("el enemigo introducido no es correcto o no esta disponible");
+					System.out.println("seleccionaste"+(elecion_ataque));
+				}
+				
+				
+				}while(elecion_ataque -3 >= personajes_a_atacar.size() || elecion_ataque -3 >= personajes_a_atacar.size()); 
+				// comprueba que es un valor valido
+				personajes_a_atacar.get(elecion_ataque-3).takeDamage(jugadores[i].getArma().getdaño());
+				System.out.println("se ha dañado a "+ personajes_a_atacar.get(elecion_ataque-3).getNombre() + " y se le ha aplicado "+jugadores[i].getArma().getdaño()+" de daño, la nueva vida de "+personajes_a_atacar.get(elecion_ataque-3).getNombre()+" es "+personajes_a_atacar.get(elecion_ataque-3).getVida()+" de vida");
 			}
-			
-			
-			}while(elecion_ataque < pesonajes_a_atacar.size()-3 || elecion_ataque > pesonajes_a_atacar.size()-3); //el do while tampoco entendemos la condicion, ¿por que restas 3? //si peta revisa esto
-			pesonajes_a_atacar.get(elecion_ataque-3).takeDamage(jugadores[i].getArma().getdaño());
-		}
+		
+		
 		
 		//turno enemigos
-		for(int i = 0; i < numero_de_bots; i++)
+		for(int j = 0; j < numero_de_bots; j++)
 		{
 			
 			//--------------------------movimiento--------------------
-			System.out.println("turno del enemigo:"+ enemigos[i].getNombre());
-			//no tengo muy claro si hay que poner tablero.mostrar_con_2(enemigos[i],2);
+			System.out.println("turno del enemigo:"+ enemigos[j].getNombre());
+			tablero.mostrar_con_2(enemigos[j],2);
 			do {
-				controlmov = moverse_enemigo(jugadores[i]);
+				controlmov = moverse_enemigo(enemigos[j]);
 				if(controlmov == 0) {
 					System.out.printf("error al moverte");
 				}
 				}while(controlmov == -1);
 				
 				controlmov = -1; //resetea el valor del controlmov
+				System.out.println("este es el tablero una vez se movio el enemigo");
+				System.out.println("-------------------------------------------------");
+				tablero.mostrar_con_2(enemigos[j], 2);
+				System.out.println("---------------este es el mapa de enemigos---------------");
+				
+				
 				
 				//-------------------------ataque---------------------------
+				Random random = new Random();
+				
+				personajes_a_atacar = tablero.atacar(enemigos[j]); //esto devuelve el arraylist con los personajes a los que su arma tiene rango para atacar
+				if(personajes_a_atacar.size() == 0 ) {
+					System.out.println("no tienes a nadie a rango por lo que no poedes atacar");
+				}else {
+					
+					
+					elecion_ataque = random.nextInt(personajes_a_atacar.size()); //elige el enemigo al que atacar
+					System.out.print(elecion_ataque);
+					System.out.print(personajes_a_atacar.size()); //todo el ataque es automatico el de los bots
+					
+					
+					personajes_a_atacar.get(elecion_ataque).takeDamage(enemigos[j].getArma().getdaño()); //hace daño al enemigo
+					System.out.println("se ha dañado a "+ personajes_a_atacar.get(elecion_ataque).getNombre() + " y se le ha aplicado "+enemigos[j].getArma().getdaño()+" de daño, la nueva vida de "+personajes_a_atacar.get(elecion_ataque).getNombre()+" es "+personajes_a_atacar.get(elecion_ataque).getVida()+" de vida");
+
+				}
+			}
 		}
 		
 	}
@@ -289,14 +355,14 @@ public class Partida {
 		System.out.println("introduce si quieres moverte: derecha (1) izquierda(2) o no moverse lateralmente (0)");
 		 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
 		 case 1:
-			 moversex = 1; //derecha
+			 moversey = 1; //derecha
 			 break;
 		 case 2:
-			 moversex = -1; //izquierda
+			 moversey = -1; //izquierda
 			 break;
 		 case 0:
 			 
-			 moversex = 0; //nada
+			 moversey = 0; //nada
 			 break;
 	        default:
 	        	
@@ -306,13 +372,13 @@ public class Partida {
 		 System.out.println("introduce si quieres moverte: arriba (1) abajo(2) o no moverse verticalmente (0)");
 		 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
 		 case 1:
-			 moversey = -1; //arriba
+			 moversex = -1; //arriba
 			 break;
 		 case 2:
-			 moversey = 1; //abajo
+			 moversex = 1; //abajo
 			 break;
 		 case 0:
-			 moversey = 0; //nada
+			 moversex = 0; //nada
 			 break;
 		 default:
 			  
@@ -339,41 +405,37 @@ public class Partida {
 			int moversey = 0;
 			do {
 			 moversex = numRand.nextInt(3); //hace valor random cada vez que entra al bucle entre 0 y 2
-			 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
+			 switch(moversex) { //hacemos un switch para ver a donde se quiere mover
 			 case 1:
-				 moversex = 1; //derecha
+				 moversey = 1; //derecha
 				 break;
 			 case 2:
-				 moversex = -1; //izquierda
+				 moversey = -1; //izquierda
 				 break;
 			 case 0:
 				 
-				 moversex = 0; //nada
+				 moversey = 0; //nada
 				 break;
 		        default:
-		        	
-		            System.out.println("Opción no reconocida.\n");
+
 		            break;
 			 }
 
 			 moversey = numRand.nextInt(3); //hace valor random cada vez que entra al bucle entre 0 y 2
-			 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
+			 switch(moversey) { //hacemos un switch para ver a donde se quiere mover
 			 case 1:
-				 moversey = -1; //arriba
+				 moversex = -1; //arriba
 				 break;
 			 case 2:
-				 moversey = 1; //abajo
+				 moversex = 1; //abajo
 				 break;
 			 case 0:
-				 moversey = 0; //nada
+				 moversex = 0; //nada
 				 break;
 			 default:
-				  
-		            System.out.println("Opción no reconocida.\n");
 		            break;
 			 }
 			 if(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0){ // comprobamos los valores para soltar el mensaje de error
-				 System.out.printf("introduce valores validos para poder moverte");
 			 }
 			}while(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0);
 			// si los valores no son correctos vulvemos a repetir
