@@ -1,24 +1,73 @@
 package partida;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import personajes.*;
 
 public class Tablero {
 	private int[][] tablero;
     private Personaje[] personajes;
 
-    //inicializar la partida
-    // el tamaño del tablero tiene que ser 9 veces mas grandes que el de los jugadores de forma
+    //metemos los personajes que se nos han paso dentro del tablero cambiando su x e y
     public void meterPersonajes() {
-      
+    	Random random = new Random();
+    	int fila = 0;
+    	int columna = 0;
+        
+        for(int i = 0;i < personajes.length;i++) {
+            
+            
+            
+             fila = random.nextInt(tablero.length); 
+             columna = random.nextInt(tablero[0].length); 
+        	personajes[i].setX(fila);
+            personajes[i].setY(columna);
+            
+            asignarValor(fila,columna,1);
+        	
+        }
     }
 
+    //esta funcio solo cambia el valor lo muestra y lo vuelve a cambiar para que sea mas facil a la hora de moverse por el tablero
+    public void mostrar_con_2(Personaje p1,int num){
+    	asignarValor(p1.getX(),p1.getY(),num);//se asigna el valor num en las coordenadas del personaje
+    	mostrarTablero();//muestra tablero
+    	asignarValor(p1.getX(),p1.getY(),num);
+    }
+    
+    
+    public void mostrarenemigos(ArrayList<Personaje> array_enemigos,Personaje p1) {
+    	Personaje enemigo;
+    	for(int i = 3;i < array_enemigos.size()+3; i++) { //usamos tres para que no se confunda con jugadores tablero ni tu mismo
+    		
+    		asignarValor_con_personaje(array_enemigos.get(i-3),i);
+    		
+    	}
+    	asignarValor_con_personaje(p1,2); //cambiamos para ver nuestro personaje
+    	mostrarTablero();
+    	asignarValor_con_personaje(p1,1); //volvemos a cambiar el valor para que este todo correcto
+    	
+    	for(int i = 3;i < array_enemigos.size()+3; i++) { //usamos tres para que no se confunda con jugadores tablero ni tu mismo
+    		
+    		asignarValor_con_personaje(array_enemigos.get(i-3),1);
+    		
+    	}
+    }
+    
+    
+    
     
     
     public void inicializa_tablero(int numero_personajes) {
     	
-    	tablero = new int[numero_personajes * 3][numero_personajes * 3];
+    	tablero = new int[numero_personajes ][numero_personajes ];
     	
     }
+    
+    
+    
+    
     // cambiar valor en una posicion especifica
     public void asignarValor(int fila, int columna, int valor) {
         if (fila >= 0 && fila < tablero.length && columna >= 0 && columna < tablero[0].length) { //comprar que este dentro del rango
@@ -27,7 +76,21 @@ public class Tablero {
             System.out.println("indice fuera de rango.");
         }
     }
+    
+    
+    //se asgina el valor pero solo hace falta pasarle el personaje por lo que es mas sencillo
+    public void asignarValor_con_personaje(Personaje p1, int valor) {
+        if (p1.getX() >= 0 && p1.getX() < tablero.length && p1.getY() >= 0 && p1.getY() < tablero[0].length) { //comprar que este dentro del rango
+            tablero[p1.getX()][p1.getY()] = valor;
+        } else {
+            System.out.println("indice fuera de rango.");
+        }
+    }
 
+    
+    
+    
+    
     // Metodo para obtener un valor de una posicion especifica
     public int obtenerValor(int fila, int columna) {
         if (fila >= 0 && fila < tablero.length && columna >= 0 && columna < tablero[0].length) {
@@ -37,6 +100,10 @@ public class Tablero {
             return -1; //si hay error devuelve -1
         }
     }
+    
+    
+    
+    
 
     //imprime el tablero
     public void mostrarTablero() {
@@ -47,6 +114,9 @@ public class Tablero {
             System.out.println();
         }
     }
+    
+    
+    
     
     //calcula la distancia de un personaje a otro
     public int distacia(Personaje p1,Personaje p2) {
@@ -59,6 +129,11 @@ public class Tablero {
     }
     
     
+    
+    
+    
+    
+    
     //misma funcion pero funciona con cordenadas para ver distancias
     public int distacia(int x1,int x2,int y1,int y2) {
    	
@@ -67,6 +142,10 @@ public class Tablero {
        return distanciaX + distanciaY;
 
    }
+    
+    
+    
+    
     //esta funcion le pasamos direcion y nos compueba su podemos movernos si no es asi nos da error y devuelve -1
     //ejemplo de uso me quiero mover uno arriba uno derecha direccionx = 1 direcciony = 1 si queremos abajo izquierda direccionx = -1 direcciony = -1
     
@@ -91,6 +170,11 @@ public class Tablero {
     	
     }
     
+    
+    
+    
+    
+    //se le pasan unas coordenadas y te dice que personaje hay hay o si no hay que devuelve null
     public Personaje cords_a_personaje(int x,int y) {
     	for(int i= 0;i < personajes.length;i++) {//se repite por cada personaje en el array
     		if(personajes[i].getX() == x && personajes[i].getY() == y) { //coje las coordenadas de lo personajes y las compara con las que le pasas
@@ -101,30 +185,32 @@ public class Tablero {
     	
     }
     
-    public Personaje[] atacar(Personaje p1) {
-    	Personaje array[] = new Personaje[10];
-    	int w = 0;//numero del array donde guardar los jugadores
-    	int distancia = p1.getarma().getdistancia_de_ataque();
-    	for (int i = -distancia; i <= distancia; i++) { //buscamos en un radio a su alrededor
+    public ArrayList<Personaje> atacar(Personaje p1) {
+        ArrayList<Personaje> personajes_a_atacar = new ArrayList<Personaje>(); // Lista de personajes a atacar
+        int distancia = p1.getarma().getdistancia_de_ataque(); // Distancia de ataque del personaje
+
+        // Recorremos el radio de ataque alrededor del personaje
+        for (int i = -distancia; i <= distancia; i++) { 
             for (int j = -distancia; j <= distancia; j++) {
                 // Coordenadas de la casilla a inspeccionar
                 int nx = p1.getY() + i;
                 int ny = p1.getY() + j;
 
                 // Verificar si las coordenadas están dentro de los límites de la matriz
-                if (nx >= 0 && ny >= 0 && nx < tablero.length && ny < tablero[0].length) { // que este dentro del campo
-                    if (obtenerValor(nx,ny) == 1 || obtenerValor(nx,ny) == 2) {   // Si la casilla contiene un 1 o 2, buscamos el jugador y lo metemos al array que devuelve
-                    	if(cords_a_personaje(nx,ny) != null) { //buscamos el personaje
-                    		array[w] = cords_a_personaje(nx,ny);
-                    	}else {
-                    		System.out.println("error al buscar personaje en el tablero"); // error al buscar el personaje ya que no se dieron bien ls coordenadas
-                    	}
-                       w++;
+                if (nx >= 0 && ny >= 0 && nx < tablero.length && ny < tablero[0].length) {
+                    // Verificamos si hay un personaje en esa casilla
+                    if (obtenerValor(nx, ny) == 1 || obtenerValor(nx, ny) == 2) { // Si la casilla contiene un 1 o 2 (personajes) con el 1 basta pero asi nos quitamos de errores
+                        Personaje personaje = cords_a_personaje(nx, ny); // Obtener personaje de las coordenadas
+                        if (personaje != null) {
+                            personajes_a_atacar.add(personaje); // Agregar el personaje a la lista de atacables
+                        } else {
+                            System.out.println("Error: No se encontró personaje en las coordenadas (" + nx + ", " + ny + ")");
+                        }
                     }
                 }
             }
         }
-    	return array; 
+        return personajes_a_atacar; // Devolver la lista de personajes a atacar
     }
     
     

@@ -1,5 +1,6 @@
 package partida;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Herramienta.Herramienta;
@@ -98,14 +99,33 @@ public class Partida {
 		tablero.inicializa_tablero(numero_de_personajes);
 		tablero.setarraypersonajes(arraypersonajes);
 		tablero.meterPersonajes();
+		System.out.println("-----------normas-----------\n       en tu turno puedes moverte y atacar \n        si la vida llega a 0 muere\n       los 1 son jugadores y los 0 casillas vacias\n         el 2 eres tu ");         
+				                                        
 		
 		//----------------------------------------------------principio partida----------------------------------------------------------------------------------
 		turno();
 	}
 	
 	public void turno() {
+		ArrayList<Personaje> pesonajes_a_atacar = new ArrayList<Personaje>();
+		int elecion_ataque;
 		System.out.println("inicio de turno");
 		tablero.mostrarTablero();
+		//turno de jugadores
+		for(int i = 0;i<numero_de_jugadores;i++) {
+			//--------------------------movimiento--------------------
+			System.out.println("turno del jugador:"+ jugadores[i].getNombre());
+			tablero.mostrar_con_2(jugadores[i],2);
+			moverse_jugador(jugadores[i]);
+			System.out.println("este es el tablero una vez te moviste");
+			tablero.mostrar_con_2(jugadores[i],2);
+			//-------------------------ataque---------------------------
+			pesonajes_a_atacar = tablero.atacar(jugadores[i]); //esto devuelve el arraylist con los personajes a los que su arma tiene rango para atacar
+			tablero.mostrarenemigos(pesonajes_a_atacar,jugadores[i]);
+			System.out.println("estos son los jugadores que puedes atacar (lo 3 para arriba) escribe el numero del jugador a quien quieras atacar que este en tu rango");
+			lector.nextInt();
+		}
+		
 	}
 	
 	

@@ -86,11 +86,6 @@ public class Herramienta {
     
     
     
-    
-    
-    
-    
-    
     public String toString() { //metodo toString
         return ("     arma:\n nombre: "+nombre +"\n el daño es: "+ daño +"\n la distancia de ataque es: "+ distancia_ataque);
     }
