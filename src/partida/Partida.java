@@ -187,7 +187,7 @@ public class Partida {
 		{
 			 name = ("bot " + k);
 			enemigos[k] = new Enemigo(100, name, new Herramienta(), tablero);
-			arraypersonajes[k] = enemigos[k] ;
+			arraypersonajes[j] = enemigos[k] ;
 			j++;
 		}
 	}
