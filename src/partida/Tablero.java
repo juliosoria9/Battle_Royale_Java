@@ -193,7 +193,7 @@ public class Tablero {
     
     public ArrayList<Personaje> atacar(Personaje p1) {
         ArrayList<Personaje> personajes_a_atacar = new ArrayList<Personaje>(); // Lista de personajes a atacar
-        int distancia = p1.getarma().getdistancia_de_ataque(); // Distancia de ataque del personaje
+        int distancia = p1.getArma().getdistancia_de_ataque(); // Distancia de ataque del personaje
 
         // Recorremos el radio de ataque alrededor del personaje
         for (int i = -distancia; i <= distancia; i++) { 

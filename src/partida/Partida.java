@@ -10,24 +10,23 @@ import personajes.*;
 
 public class Partida {
 	
-	//arrays declarados como globales porque todas las funciones tienen que poder acceder a ellos
+	//variables declaradas como globales porque todas/varias funciones tienen que poder acceder a ellas
+	private Scanner lector = new Scanner(System.in);
+	private int bots_minimos = 2;
+	private int bots_maximos = 10;
+	private int players_minimos = 1;
+	private int players_maximos = 5;
 	
-	Scanner lector = new Scanner(System.in);
-	int bots_minimos = 2;
-	int bots_maximos = 10;
-	int players_minimos = 1;
-	int players_maximos = 5;
 	
+	private Tablero tablero = new Tablero();
+	private int numero_de_personajes = 0;
+	private int numero_de_jugadores = 0;
+	private int numero_de_bots = 0;
+	private boolean controlPartida = true;
 	
-	Tablero tablero = new Tablero();
-	int numero_de_personajes = 0;
-	int numero_de_jugadores = 0;
-	int numero_de_bots = 0;
-	boolean controlPartida = true;
-	
-	Personaje arraypersonajes[];
-	Enemigo enemigos[];
-	Jugador jugadores[];
+	private Personaje arraypersonajes[];
+	private Enemigo enemigos[];
+	private Jugador jugadores[];
 	
 	public void inicio()
 	{
@@ -143,7 +142,7 @@ public class Partida {
 			
 			
 			}while(elecion_ataque < pesonajes_a_atacar.size()-3 || elecion_ataque > pesonajes_a_atacar.size()-3);
-			pesonajes_a_atacar.get(elecion_ataque-3).takeDamage(jugadores[i].getarma().getdaño());
+			pesonajes_a_atacar.get(elecion_ataque-3).takeDamage(jugadores[i].getArma().getdaño());
 		}
 		
 	}
@@ -152,10 +151,15 @@ public class Partida {
 	public void crearpersonajes() {
 		String name;
 		int j = 0;
+		//-------------------------crea jugadores---------------------------
 		for(int i = 1; i < numero_de_jugadores+1; i++) //crea los jugadores les asigna un arma automaticamnete he imprime el arma
 		{
 			System.out.println("\nintroduce el nombre del jugador" + i +":");
-			 name = lector.next();
+			name = lector.next();
+			if(name.isBlank() || name.isEmpty()) //si el nombre esta vacio o no tiene caracteres visibles (es de espacios) le pone al jugador nombre por defecto
+			{
+				name = "jugador" + i;
+			}
 			System.out.println("\nElige el tipo:");
 			System.out.println("Guerrero: 1 (por defecto) / Tanque: 2 / Asesino: 3");
 			int tipo = lector.nextInt();
@@ -175,16 +179,19 @@ public class Partida {
 				break;
 			default:
 				jugadores[i-1] = new Jugador(100, name, new Herramienta(10), tablero); //instanciamos al jugador pasandole vida nombre y la herramienta (que se crea en el propio constructor)
+				System.out.println("\nHas elegido guerrero tienes 100 de vida y +10 de daño en tus armas");
 			break;
 			}
 			
-			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getarma().toString());
+			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getArma().toString());
 			arraypersonajes[j] = jugadores[i-1] ;
 			j++;
 		}
+		
+		//-------------------------crea enemigos---------------------------
 		for(int k = 0; k < numero_de_bots; k++) //crea los bots les asigna un arma automaticamnete he imprime el arma
 		{
-			 name = ("bot " + k);
+			name = ("bot " + (k+1));
 			enemigos[k] = new Enemigo(100, name, new Herramienta(), tablero);
 			arraypersonajes[j] = enemigos[k] ;
 			j++;
@@ -204,6 +211,9 @@ public class Partida {
 		
 		//No se modifica la vida de los enemigos, se deja la de base
 	}
+	
+	
+	
 	public void dificultad_media() {
 		//llamar a crear_personajes y pasarle el multiplicador de vida para la dificultad
 		for(int i = 0; i < numero_de_jugadores; i++)
@@ -219,6 +229,8 @@ public class Partida {
 		}
 	}
 	
+	
+	
 	public void dificultad_dificil() {
 		
 		//No se modifica la vida del jugador se deja la de base
@@ -229,20 +241,10 @@ public class Partida {
 			enemigos[i].setVida(vidaEnemyMod);
 		}
 	}
-
-	
-	
-						
-							
-	
-		
-	
-	
 	
 	
 	
 	//funcion moverse esta llama al tablero y gestiona tmabien la entrada del usuario
-	
 	private int moverse_jugador(Personaje p1) { //pasamos el personaje que queremos que se 
 		
 		//variables de movimiento en x e y
@@ -295,11 +297,14 @@ public class Partida {
 	
 	
 	
+<<<<<<< HEAD
 	
 	
 	
 	
 	
+=======
+>>>>>>> 2d4dbccd31bdeffedcac5759b33196e8acecd8c6
 	private int obtenernumero_de_personajeseroValido(Scanner lector,String tipo, int min, int max) {
 	    int numero_de_personajes;
 	    boolean valido = false;
@@ -318,6 +323,8 @@ public class Partida {
 	    return numero_de_personajes;
 	}
 
+	
+	
 	public String toString() {
 	    System.out.println("---- Información de la Partida ----");
 	    System.out.println("Número total de personajes: " + numero_de_personajes);
@@ -328,5 +335,4 @@ public class Partida {
 		return null;
 	}
 
-	
 }
