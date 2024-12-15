@@ -127,6 +127,9 @@ public class Partida {
 			}while(controlmov == -1);
 			System.out.println("este es el tablero una vez te moviste");
 			System.out.println("-------------------------------------------------");
+			tablero.mostrar_con_2(jugadores[i], 2);
+			System.out.println("-------------------------------------------------");
+			System.out.println("---------------este es el mapa de enemigos---------------");
 			
 			
 			
@@ -142,7 +145,7 @@ public class Partida {
 			
 			
 			}while(elecion_ataque < pesonajes_a_atacar.size()-3 || elecion_ataque > pesonajes_a_atacar.size()-3);
-			pesonajes_a_atacar.get(elecion_ataque-3).takeDamage(jugadores[i].getarma().getdaño());
+			pesonajes_a_atacar.get(elecion_ataque-3).takeDamage(jugadores[i].getArma().getdaño());
 		}
 		
 	}
@@ -183,7 +186,7 @@ public class Partida {
 			break;
 			}
 			
-			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getarma().toString());
+			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getArma().toString());
 			arraypersonajes[j] = jugadores[i-1] ;
 			j++;
 		}
@@ -271,10 +274,10 @@ public class Partida {
 		 System.out.println("introduce si quieres moverte: arriba (1) abajo(2) o no moverse verticalmente (0)");
 		 switch(lector.nextInt()) { //hacemos un switch para ver a donde se quiere mover
 		 case 1:
-			 moversey = 1;
+			 moversey = -1;
 			 break;
 		 case 2:
-			 moversey = -1;
+			 moversey = 1;
 			 break;
 		 case 0:
 			 moversey = 0;
@@ -288,10 +291,8 @@ public class Partida {
 			 System.out.printf("introduce valores validos para poder moverte");
 		 }
 		}while(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0);
-		System.out.println(moversex+"."+moversey);
 		// si los valores no son correctos vulvemos a repetir
 		int num = tablero.moverse(p1, moversex, moversey);
-		System.out.println("dev"+num);
 		 return(num); //llamamos a la funcion para moverse de la clase tablero y segun lo que devuelva controlamos el error
 		 
 	}

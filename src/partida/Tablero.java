@@ -5,7 +5,7 @@ import java.util.Random;
 
 import personajes.*;
 
-public class Tablero {
+public class Tablero<asignarValor> {
 	private int[][] tablero;
     private Personaje[] personajes;
 
@@ -156,13 +156,12 @@ public class Tablero {
     	
     	
     	if( nuevaX >= 0 && nuevaX < tablero.length && nuevaY >= 0 && nuevaY < tablero[0].length) {
-    			p1.setX(p1.getX() + direccionx) ;
-        		p1.setY(p1.getY() + direcciony) ;
-
         		 if (obtenerValor(nuevaX, nuevaY) == 0) {
         	            // Actualizamos la posición del personaje
+        			 asignarValor_con_personaje(p1,0);
         	            p1.setX(nuevaX);
         	            p1.setY(nuevaY);
+        	            
         	            return 1; // Movimiento exitoso
         	        } else {
         	            System.out.println("Casilla ocupada.");
