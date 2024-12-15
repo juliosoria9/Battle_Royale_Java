@@ -38,6 +38,9 @@ public class Partida {
 		System.out.println("----------------BIENVENIDO AL BATTLE ROYALE------------------");
 		System.out.println("");
 		
+		//TABELRO
+		//Hay que crear el tablero antes que los personajes porque se necesita el tablero en el constructor de personajes
+		
 		//CREACION PERSONAJES
 		
 		//----------------------------------------------selenccion de jugadores-------------------------------------------------------------
@@ -94,15 +97,42 @@ public class Partida {
 		
 		
 	}
+	
+	//modifican la vida de jugadores y enemigos en funcion de la dificultad
+	//se hace un setter de la vida porque cada tipo de personaje tiene una vida base distinta (porque hay que tener 3 tipos de personajes)
 	public void dificultad_facil() {
-		//TODO llamar a crear_personajes y pasarle el multiplicador de vida para la dificultad
+		for(int i = 0; i < numero_de_jugadores; i++)
+		{
+			int vidaMod = (int) ((int)jugadores[i].getVida()*1.6);
+			jugadores[i].setVida(vidaMod);
+		}
+		
+		//No se modifica la vida de los enemigos, se deja la de base
 	}
 	public void dificultad_media() {
 		//TODO llamar a crear_personajes y pasarle el multiplicador de vida para la dificultad
+		for(int i = 0; i < numero_de_jugadores; i++)
+		{
+			int vidaMod = (int) ((int)jugadores[i].getVida()*1.4);
+			jugadores[i].setVida(vidaMod);
+		}
+		
+		for(int i = 0; i < numero_de_bots; i++)
+		{
+			int vidaEnemyMod = (int) ((int)enemigos[i].getVida()*1.2);
+			enemigos[i].setVida(vidaEnemyMod);
+		}
 	}
 	
 	public void dificultad_dificil() {
 		//TODO llamar a crear_personajes y pasarle el multiplicador de vida para la dificultad
+		//No se modifica la vida del jugador se deja la de base
+		
+		for(int i = 0; i < numero_de_bots; i++)
+		{
+			int vidaEnemyMod = (int) ((int)enemigos[i].getVida()*1.4);
+			enemigos[i].setVida(vidaEnemyMod);
+		}
 	}
 
 	
@@ -124,62 +154,8 @@ public class Partida {
 					        }*/
 	
 
-	public void crear_personajes(int dificultad) { // dificultad puede ser un multiplicador de vida ejemplo 1.2 * 100 = 120 de vida eso en medio en dificil un *1.6 o algo asi
-		String nombre;
-		for(int i = 0;i < numero_de_jugadores; i++) {
-			System.out.println("introduce el nombre de tu personaje");
-			
-			//TODO aqui basicamente se crean los jugadores y es necesario que en herramienta cuando se construlla 
-			//TODO añadir los jugadores que se crean tambien a array_personajes
-			/*
-			nombre = lector.nextInt();
-			jugadores[i] = new Jugador(100,new Herramienta(),nombre,tablero);
-			/*int vida, Herramienta arma, String nombre,  Tablero tablero*/
-		}
-		for(int i = 0;i < numero_de_bots; i++) {
-			//TODO aqui hay que hacer lo mismo que personaje pero con los bots los nombre los generamos de forma aleatoria del un array(por ejemplo) y la herramienta se genera aleatoria
-			//en el constructor
-			//TODO añadir los jugadores que se crean tambien a array_personajes
-		}
+	public void crear_personajes(int dificultad, int vida) { // dificultad puede ser un multiplicador de vida ejemplo 1.2 * 100 = 120 de vida eso en medio en dificil un *1.6 o algo asi
 		
-		
-		
-	}
-	/*
-	private void turno(int numero_de_personajes, Jugador jugadores[], Enemigo enemigos[],Scanner lector,Tablero tablero)
-	{
-		Personaje oponente; //se declara como tipo personaje para que valga para ambos
-		
-		for(int i = 0; i < numero_de_personajes; i++)
-		{
-			//turno player i
-			moverse(jugadores[i],lector,tablero);
-			oponente = tablero.atacar(jugadores[i]); 				//esto va a devolver un array donde estan los jugadores a su alcance
-			if(oponente != null)//&& tablero.distancia(jugadores[i],oponente)<=3)
-			{
-				jugadores[i].makeDamage(oponente.getVida()); //si puede atacar ataca
-				//oponente = null; //se reseta la variable para el siguiente movimiento
-				oponente.CheckDeath();
-			}
-			
-			//turno enemy i
-			moverse(enemigos[i],lector,tablero); //TODO implementar sistemas de bots
-			
-			oponente = tablero.atacar(enemigos[i]); //esto va a devolver un array donde estan los jugadores a su alcance
-			if(oponente != null)//&& tablero.distancia(jugadores[i],oponente)<=3)
-			{
-				jugadores[i].makeDamage(oponente.getVida()); //si puede atacar ataca
-				//oponente = null; //se reseta la variable para el siguiente movimiento
-				oponente.CheckDeath();
-			}
-		}
-	}
-
-	public void crearPersonajes(int numero_de_personajes, String dificultad, Tablero tablero, Jugador jugadores[], Enemigo enemigos[])
-	{
-	
-		
-		//Crea jugadores
 		for (int i = 0; i < numero_de_personajes; i++)
 		{
 			System.out.println("Elige tu tipo de personaje:");
@@ -212,31 +188,79 @@ public class Partida {
 			System.out.println("");
 			
 			//hacer enumero_de_personajes para el control de tipo
+			//modificar para pasar el arma directamente en vez del nombre, aunque estaria bien si se puede mantener armas similares a esas para el inicio para diferenciar los 3 tipos de personaje
 			if(tipo == 1)//guerrero
 			{
-				jugadores[i] = new Jugador(100, nombre, "espada", 0, 0, tablero);
+				jugadores[i] = new Jugador(100, nombre, "espada", 0, 0, tablero); //corto alcance mucha fuerza, vida estandar
 			}else if(tipo == 2)//mago
 			{
-				jugadores[i] = new Jugador(125, nombre, "varita", 0, 0, tablero);
+				jugadores[i] = new Jugador(125, nombre, "varita", 0, 0, tablero); //corto alcance poca fuerza, más vida
 			}else if(tipo == 3)//arquero
 			{
-				jugadores[i] = new Jugador(75, nombre, "arco", 0, 0, tablero);
+				jugadores[i] = new Jugador(75, nombre, "arco", 0, 0, tablero); //largo alcance, poca vida
 			}else//por defecto
 			{
-				jugadores[i] = new Jugador(100, nombre, "espada", 0, 0, tablero);
+				jugadores[i] = new Jugador(100, nombre, "espada", 0, 0, tablero); //por defecto
 			}
         }
 		
 		//Crea enemigos
 		for(int i = 0; i < numero_de_personajes; i++)
 		{
-			enemigos[i] = new Enemigo(0, null, "Enemigo" + (i + 1), 0, 0, tablero);//inicializacion del enemig
-			enemigos[i].creaEnemigos(dificultad, tablero, i);
+			//TODO pasarle arma donde esta null
+			enemigos[i] = new Enemigo(100, null, "Enemigo" + (i + 1), 0, 0, tablero);//inicializacion del enemigo
+		}
+		
+		//hacer enmun enum_dificultad para las dificultades
+		if(dificultad == 1)
+		{
+			dificultad_facil();
+		}else if(dificultad == 2)
+		{
+			dificultad_media();
+		}
+		else if(dificultad == 3)
+		{
+			dificultad_dificil();
+		}else
+		{
+			dificultad_media();
 		}
 		
 		//tablero.setarraypersonajes();
 		tablero.meterPersonajes();
+		
 	}
+	/*
+	private void turno(int numero_de_personajes, Jugador jugadores[], Enemigo enemigos[],Scanner lector,Tablero tablero)
+	{
+		Personaje oponente; //se declara como tipo personaje para que valga para ambos
+		
+		for(int i = 0; i < numero_de_personajes; i++)
+		{
+			//turno player i
+			moverse(jugadores[i],lector,tablero);
+			oponente = tablero.atacar(jugadores[i]); 				//esto va a devolver un array donde estan los jugadores a su alcance
+			if(oponente != null)//&& tablero.distancia(jugadores[i],oponente)<=3)
+			{
+				jugadores[i].makeDamage(oponente.getVida()); //si puede atacar ataca
+				//oponente = null; //se reseta la variable para el siguiente movimiento
+				oponente.CheckDeath();
+			}
+			
+			//turno enemy i
+			moverse(enemigos[i],lector,tablero); //TODO implementar sistemas de bots
+			
+			oponente = tablero.atacar(enemigos[i]); //esto va a devolver un array donde estan los jugadores a su alcance
+			if(oponente != null)//&& tablero.distancia(jugadores[i],oponente)<=3)
+			{
+				jugadores[i].makeDamage(oponente.getVida()); //si puede atacar ataca
+				//oponente = null; //se reseta la variable para el siguiente movimiento
+				oponente.CheckDeath();
+			}
+		}
+	}
+	
 	/*
 	//comprueba que aun queden enemigos o jugadores
 	private boolean CheckPersonajes(Jugador[] jugadores , Enemigo[] enemigos)

@@ -63,6 +63,11 @@ public abstract class Personaje {
 		return vida;
 	}
 	
+	public int setVida(int valor)
+	{
+		return valor;
+	}
+	
 	public String getNombre()
 	{
 		return nombre;

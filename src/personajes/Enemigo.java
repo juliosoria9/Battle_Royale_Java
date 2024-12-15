@@ -5,7 +5,7 @@ import partida.Tablero;
 
 public class Enemigo extends Personaje{
 	
-	public Enemigo(int vida, Herramienta arma, String nombre,  Tablero tablero)
+	public Enemigo(int vida, Herramienta arma, String nombre, int x, int y, Tablero tablero)
 	{
 		super(vida, arma, nombre, tablero);
 	}
