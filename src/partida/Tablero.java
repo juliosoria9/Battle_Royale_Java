@@ -9,34 +9,14 @@ public class Tablero {
     //inicializar la partida
     // el tamaño del tablero tiene que ser 9 veces mas grandes que el de los jugadores de forma
     public void meterPersonajes() {
-        int fila = 0;
-        int columna = 0;
-
-        for (int i = 0; i < personajes.length; i++) {
-            personajes[i].setX(fila);
-            personajes[i].setY(columna);
-            asignarValor(fila,columna,1);
-           
-            if (fila + 3 < tablero.length) { 
-                fila += 3; 
-            } else {
-
-                fila = 0;
-                if (columna + 3 < tablero[0].length) { 
-                    columna = columna +3; 
-                } else {
-  
-                    return;
-                }
-            }
-        }
+      
     }
 
     
     
     public void inicializa_tablero(int numero_personajes) {
     	
-    	tablero = new int[numero_personajes * 9][numero_personajes * 9];
+    	tablero = new int[numero_personajes * 3][numero_personajes * 3];
     	
     }
     // cambiar valor en una posicion especifica
