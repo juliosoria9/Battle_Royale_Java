@@ -74,32 +74,21 @@ public class Enemigo extends Personaje{
 	
 	private Herramienta buscarArma() {
 		if(this.arma.getDamage()<10) {
-				return resetArma(2);
+			 Herramienta nuevaArma = null;
+			resetArma(nuevaArma);
+		        return nuevaArma;
 		}
 		return null;
 	
 	}
-	//TODO esto deve ser dinamico para adaptarse al modelo de funcionamiento de herramienta de forma que solo hace falta que el game object arma se cambie por el nuevo
-	//(yo lo eliminaba)
-	/*
-	public static Herramienta resetArma(int tipo) {
-		Herramienta armaReset;
-		switch(tipo) {//segun el tipo de enemigo
-			case 1:
-				armaReset= new Herramienta("Espada",10,"corta",1);
-				break;
-			case 2:
-				armaReset= new Herramienta("Arco",5,"corta",3);
-				break;
-			case 3:
-				armaReset= new Herramienta("Varita",8,"corta",2);
-				break;
-			default:
-				armaReset=new Herramienta("No se ha equipado arma",0,"",0);
-				break;
-		}
-		System.out.println("El arma que se ha equipado al enemigo es :"+armaReset);
-		return armaReset;
-	}*/
+
+	public void resetArma(Herramienta nuevaArma) {
+	    if (nuevaArma != null) {
+	        this.arma = nuevaArma;
+	        System.out.println("El enemigo ha cambiado su arma a: " + nuevaArma.getNombre());
+	    } else {
+	        System.out.println("No se pudo cambiar a esa arma");
+	    }
+	}
 	
 }
