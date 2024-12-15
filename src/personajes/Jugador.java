@@ -1,7 +1,5 @@
 package personajes;
 
-import java.util.Scanner;
-
 import Herramienta.Herramienta;
 import partida.Tablero;
 

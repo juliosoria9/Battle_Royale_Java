@@ -143,7 +143,7 @@ public class Partida {
 			
 			
 			}while(elecion_ataque < pesonajes_a_atacar.size()-3 || elecion_ataque > pesonajes_a_atacar.size()-3);
-			pesonajes_a_atacar.get(elecion_ataque-3).takeDamage(jugadores[i].getarma().getdaño());
+			pesonajes_a_atacar.get(elecion_ataque-3).takeDamage(jugadores[i].getArma().getdaño());
 		}
 		
 	}
@@ -184,7 +184,7 @@ public class Partida {
 			break;
 			}
 			
-			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getarma().toString());
+			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getArma().toString());
 			arraypersonajes[j] = jugadores[i-1] ;
 			j++;
 		}
@@ -212,6 +212,9 @@ public class Partida {
 		
 		//No se modifica la vida de los enemigos, se deja la de base
 	}
+	
+	
+	
 	public void dificultad_media() {
 		//llamar a crear_personajes y pasarle el multiplicador de vida para la dificultad
 		for(int i = 0; i < numero_de_jugadores; i++)
@@ -227,6 +230,8 @@ public class Partida {
 		}
 	}
 	
+	
+	
 	public void dificultad_dificil() {
 		
 		//No se modifica la vida del jugador se deja la de base
@@ -237,20 +242,10 @@ public class Partida {
 			enemigos[i].setVida(vidaEnemyMod);
 		}
 	}
-
-	
-	
-						
-							
-	
-		
-	
-	
 	
 	
 	
 	//funcion moverse esta llama al tablero y gestiona tmabien la entrada del usuario
-	
 	private int moverse_jugador(Personaje p1) { //pasamos el personaje que queremos que se 
 		
 		//variables de movimiento en x e y
@@ -293,6 +288,9 @@ public class Partida {
 		}while(moversex != 1 && moversex != -1 && moversex != 0 && moversey != 1 && moversey != -1 && moversey != 0); // si los valores no son correctos vulvemos a repetir 
 		 return(tablero.moverse(p1, moversex, moversey)); //llamamos a la funcion para moverse de la clase tablero 
 	}
+	
+	
+	
 	private int obtenernumero_de_personajeseroValido(Scanner lector,String tipo, int min, int max) {
 	    int numero_de_personajes;
 	    boolean valido = false;
@@ -311,6 +309,8 @@ public class Partida {
 	    return numero_de_personajes;
 	}
 
+	
+	
 	public String toString() {
 	    System.out.println("---- Información de la Partida ----");
 	    System.out.println("Número total de personajes: " + numero_de_personajes);
@@ -321,5 +321,4 @@ public class Partida {
 		return null;
 	}
 
-	
 }
