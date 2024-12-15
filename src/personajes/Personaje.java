@@ -24,7 +24,7 @@ public abstract class Personaje {
 	 public int makeDamage(int enemyVida) {
 	        //aplica  el daño usando el bonus de la herramienta equipada
 	        if (arma != null) {
-	        	usarArma();
+	        	usarArma(null);
 	            //reduce la vida del enemigo
 	            enemyVida -= arma.getDamage();
 	        }
@@ -123,12 +123,27 @@ public abstract class Personaje {
                ", arma=" + arma +
                '}';
     }
-	 public void usarArma() {
-	        if (arma != null) {
-	            //arma.usar(); //TODO es el personaje o enemigo el que deve usar el arma contra otro el arma no se puede usar a si misma de forma que cuando se ataque se coja el daño del arma
-	        					// y se quite vida al enemigo seleccionado
-	        } else {
-	            System.out.println("no se ha equipado un arma");
-	        }
-	    }
+    public void usarArma(Personaje objetivo) {
+        if (arma != null) {
+            if (objetivo != null) {
+                int danio = arma.getDamage(); // daño del arma
+                objetivo.takeDamage(danio); //daño al objetivo
+                System.out.println(nombre + " atacó a " + objetivo.getNombre() + " con " + arma + ", causando " + danio + " puntos de daño.");
+
+                //ver si ha muerto 
+                if (objetivo.getVida() <= 0) {
+                    System.out.println(objetivo.getNombre() + " ha sido derrotado.");
+                }
+            } else {
+                System.out.println("No se ha seleccionado un objetivo para atacar.");
+            }
+        } else {
+            System.out.println("No se ha equipado un arma.");
+        }
+    }
+	public void usarArma() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
