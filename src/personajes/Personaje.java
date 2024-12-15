@@ -39,9 +39,14 @@ public abstract class Personaje {
 	}
 	
 	//Getters de variables locales 
-	public Herramienta getarma() {
+	public Herramienta getArma() {
 		return this.arma;
 	}
+	
+	public void setArma(Herramienta nuevaArma) {
+		this.arma=nuevaArma;
+	}
+	
 	public int getVida()
 	{
 		return vida;

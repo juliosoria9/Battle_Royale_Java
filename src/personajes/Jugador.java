@@ -13,16 +13,4 @@ public class Jugador extends Personaje {
 		super(vida, armaInicial, nombre, tablero);
 		this.arma = armaInicial; //asignar el arma directamente
 	}
-	
-	
-	
-	public void setArma(Herramienta nuevaArma) {
-		this.arma=nuevaArma;
-	}
-	public void Die()
-	{
-		
-		tablero.asignarValor(getX(), getY(), 0);
-		System.out.println("El enemigo " + getNombre() + " ha muerto");	
-	}
 }
