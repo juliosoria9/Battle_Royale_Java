@@ -86,10 +86,19 @@ public class Herramienta {
     
     
     
-    public String toString() { //metodo toString
-        return ("     arma:\n nombre: "+nombre +"\n el daño es: "+ daño +"\n la distancia de ataque es: "+ distancia_ataque);
+    @Override
+    public String toString() {
+        return "Arma:\nNombre: " + nombre + "\nDaño: " + daño + "\nDistancia de ataque: " + distancia_ataque;
     }
-
+    
+    
+    //para comprobar si dos herramientas son iguales 
+     public int compareTo(Herramienta otro) {
+        return Integer.compare(this.daño, otro.daño);
+        //devuelve un valor negativo si el primer entero es menor que el segundo
+        //devuelve un cero si ambos enteros son iguales.
+       //devuelve un valor positivo si el primer entero es mayor que el segundo
+    }
     
      //getters no hay setters ya que el arma no deve poder cambiarse
     public String getNombre() {
