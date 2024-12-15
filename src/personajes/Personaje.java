@@ -21,21 +21,15 @@ public abstract class Personaje {
 	}
 	
 	
-	public void takeDamage(int enemyDamage) // aqui se hace daño se le pasa el daño del arma del enemigo de forma que en el main es p1.takeDamage(p2.getarma().getdaño());
-	{
-		vida -= enemyDamage;
-		if(vida < 0)
-		{
-			Die();
-		}
+	public void takeDamage(int enemyDamage) { // aqui se hace daño se le pasa el daño del arma del enemigo de forma que en el main es p1.takeDamage(p2.getarma().getdaño());
+	 vida -= enemyDamage;
+    CheckDeath();
 	}
-	
-	public void CheckDeath()
-	{
-		if(vida < 0)
-		{
-			Die();
-		}
+
+	public void CheckDeath() {
+    if (vida <= 0) {
+        Die();
+    	}
 	}
 	
 	public void Die()
