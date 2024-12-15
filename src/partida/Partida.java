@@ -142,7 +142,7 @@ public class Partida {
 			
 			
 			}while(elecion_ataque < pesonajes_a_atacar.size()-3 || elecion_ataque > pesonajes_a_atacar.size()-3);
-			pesonajes_a_atacar.get(elecion_ataque-3).takeDamage(jugadores[i].getArma().getdaño());
+			pesonajes_a_atacar.get(elecion_ataque-3).takeDamage(jugadores[i].getarma().getdaño());
 		}
 		
 	}
@@ -183,7 +183,7 @@ public class Partida {
 			break;
 			}
 			
-			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getArma().toString());
+			System.out.println("el arma de "+jugadores[i-1].getNombre()+" es:\n"+jugadores[i-1].getarma().toString());
 			arraypersonajes[j] = jugadores[i-1] ;
 			j++;
 		}
@@ -260,6 +260,7 @@ public class Partida {
 			 moversex = -1;
 			 break;
 		 case 0:
+			 
 			 moversex = 0;
 			 break;
 	        default:
@@ -296,15 +297,7 @@ public class Partida {
 	}
 	
 	
-	
-<<<<<<< HEAD
-	
-	
-	
-	
-	
-=======
->>>>>>> 2d4dbccd31bdeffedcac5759b33196e8acecd8c6
+
 	private int obtenernumero_de_personajeseroValido(Scanner lector,String tipo, int min, int max) {
 	    int numero_de_personajes;
 	    boolean valido = false;
