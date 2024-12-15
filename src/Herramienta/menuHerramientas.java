@@ -47,6 +47,7 @@ public class menuHerramientas {
                 String nombre = "";
                 int bonus = 0;
                 String tipo = "";
+                int distancia_ataque = 0;
 
                 if (lineaScanner.hasNext()) {
                     nombre = lineaScanner.next();
@@ -58,9 +59,12 @@ public class menuHerramientas {
                 if (lineaScanner.hasNext()) {
                     tipo = lineaScanner.next();
                 }
+                if (lineaScanner.hasNext()) {
+                	distancia_ataque = lineaScanner.nextInt();
+                }
 
                 //se crea y se añade 
-                herramientas.add(new Herramienta(nombre, bonus, tipo));
+                herramientas.add(new Herramienta(nombre, bonus, tipo,distancia_ataque));
                 lineaScanner.close();
             }
         } catch (Exception e) {
