@@ -122,6 +122,8 @@ public class Partida {
 		for(int i = 0; i < arraypersonajes.length; i++) {
 			if (arraypersonajes[i].getVida() <= 0) {
 				num++;
+				
+			}else {
 				nombreGanador = arraypersonajes[i].getNombre();
 			}
 			if(num >= 2) {
@@ -133,6 +135,8 @@ public class Partida {
 		}
 		return false;
 	}
+	
+	
 	public void turno(int ronda) {
 		int controlmov= 0;
 		ArrayList<Personaje> personajes_a_atacar = new ArrayList<Personaje>();
