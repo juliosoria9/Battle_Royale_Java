@@ -189,8 +189,7 @@ public class Partida {
 				System.out.println("estos son los jugadores que puedes atacar (los de 3 para arriba) escribe el numero del jugador a quien quieras atacar que este en tu rango");
 				elecion_ataque = lector.nextInt(); //elige el enemigo al que atacar
 	//ataque//	
-	//ataque//	//has puesto que todo valga, porque te vale todo lo menor o todo lo mayor, en otras palabras todo menos =
-				//esto creo que o es el ultimo o no funciona, porque size te da el tamaño maximo
+	//ataque//	
 				if(elecion_ataque -3 >= personajes_a_atacar.size() || elecion_ataque -3 >= personajes_a_atacar.size()) {
 					System.out.println("el enemigo introducido no es correcto o no esta disponible");
 					System.out.println("seleccionaste"+(elecion_ataque));

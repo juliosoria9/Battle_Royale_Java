@@ -34,6 +34,9 @@ public class Tablero<asignarValor> {
     	asignarValor(p1.getX(),p1.getY(),num);//se asigna el valor num en las coordenadas del personaje
     	mostrarTablero();//muestra tablero
     	asignarValor(p1.getX(),p1.getY(),num);
+    	if (p1 instanceof Enemigo) {
+    		asignarValor(p1.getX(),p1.getY(),1);
+    	}
     }
     
     
