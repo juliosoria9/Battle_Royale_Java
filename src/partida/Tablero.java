@@ -5,7 +5,7 @@ import java.util.Random;
 
 import personajes.*;
 
-public class Tablero {
+public class Tablero<asignarValor> {
 	private int[][] tablero;
     private Personaje[] personajes;
 
@@ -151,23 +151,33 @@ public class Tablero {
     
     public int moverse(Personaje p1, int direccionx , int direcciony) {
     	 //comprobamos que la nueva posicion esta dentro del rango
-    	if( (tablero.length <= p1.getX() + direccionx && p1.getX() + direccionx >= 0)&& ( tablero[0].length <= p1.getY() + direcciony && p1.getY() + direcciony >= 0)) {
-    		if(obtenerValor(p1.getX() + direccionx,p1.getY() + direcciony) == 0) {		//comprovamos que la casilla este libre ( = 0)
-    			
-    			p1.setX(p1.getX() + direccionx) ;
-        		p1.setY(p1.getY() + direcciony) ;
-    		}else {
-    			System.out.println("casilla ocupada");
-        		return -1; //devolvemos -1 ya que dio error
-    		}
-    		
-    	}else {
-    		System.out.println("coodenadas fuera de rango");
-    		return -1; //devolvemos -1 ya que dio error
-    	}
-    	return 0;
+        int nuevaX = p1.getX() + direccionx;
+        int nuevaY = p1.getY() + direcciony;
     	
     	
+    	if( nuevaX >= 0 && nuevaX < tablero.length && nuevaY >= 0 && nuevaY < tablero[0].length) {
+        		 if (obtenerValor(nuevaX, nuevaY) == 0 || (nuevaX == p1.getX() && nuevaY == p1.getY())) { //comprueba o que este vacia o que sea el jugador que esta dedentro
+        	            // Actualizamos la posición del personaje
+        			 asignarValor_con_personaje(p1,0);
+        	            p1.setX(nuevaX);
+        	            p1.setY(nuevaY);
+        	            
+        	            return 1; // Movimiento exitoso
+        	        } else {
+        	        	if(p1 instanceof Jugador) {
+        	        		System.out.println("Casilla ocupada.");
+        	        	}
+        	            return -1; // Error: Casilla ocupada
+        	        }
+        	    } else {
+        	    	if(p1 instanceof Jugador) { // no suelta el emnsaje si es un b
+        	    		System.out.println("Coordenadas fuera de rango.");
+    	        	}
+        	        
+        	        return -1; // Error: Fuera de rango
+    	
+        	    }
+    
     }
     
     
@@ -187,13 +197,13 @@ public class Tablero {
     
     public ArrayList<Personaje> atacar(Personaje p1) {
         ArrayList<Personaje> personajes_a_atacar = new ArrayList<Personaje>(); // Lista de personajes a atacar
-        int distancia = p1.getarma().getdistancia_de_ataque(); // Distancia de ataque del personaje
+        int distancia = p1.getArma().getdistancia_de_ataque(); // Distancia de ataque del personaje
 
         // Recorremos el radio de ataque alrededor del personaje
         for (int i = -distancia; i <= distancia; i++) { 
             for (int j = -distancia; j <= distancia; j++) {
                 // Coordenadas de la casilla a inspeccionar
-                int nx = p1.getY() + i;
+                int nx = p1.getX() + i;
                 int ny = p1.getY() + j;
 
                 // Verificar si las coordenadas están dentro de los límites de la matriz
@@ -201,11 +211,9 @@ public class Tablero {
                     // Verificamos si hay un personaje en esa casilla
                     if (obtenerValor(nx, ny) == 1 || obtenerValor(nx, ny) == 2) { // Si la casilla contiene un 1 o 2 (personajes) con el 1 basta pero asi nos quitamos de errores
                         Personaje personaje = cords_a_personaje(nx, ny); // Obtener personaje de las coordenadas
-                        if (personaje != null) {
+                        if (personaje != null && personaje != p1) {
                             personajes_a_atacar.add(personaje); // Agregar el personaje a la lista de atacables
-                        } else {
-                            System.out.println("Error: No se encontró personaje en las coordenadas (" + nx + ", " + ny + ")");
-                        }
+                        } 
                     }
                 }
             }

@@ -39,9 +39,14 @@ public abstract class Personaje {
 	}
 	
 	//Getters de variables locales 
-	public Herramienta getarma() {
+	public Herramienta getArma() {
 		return this.arma;
 	}
+	
+	public void setArma(Herramienta nuevaArma) {
+		this.arma=nuevaArma;
+	}
+	
 	public int getVida()
 	{
 		return vida;
@@ -82,8 +87,8 @@ public abstract class Personaje {
     public String toString() {
         return "---------Personaje-----------\n "
         		+ "nombre: " +nombre
-        		+ "vida: " + vida
-        		+ "arma: " + arma.toString();
+        		+ "\n vida: " + vida
+        		+ "\n"+ "-------\n"+arma.toString();
         				
     }
 }
