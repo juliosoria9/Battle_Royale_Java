@@ -19,7 +19,7 @@ public class Partida {
 	private int players_maximos = 5;
 	
 	
-	private Tablero<?> tablero = new Tablero<Object>();
+	private Tablero tablero = new Tablero();
 	private int numero_de_personajes = 0;
 	private int numero_de_jugadores = 0;
 	private int numero_de_bots = 0;

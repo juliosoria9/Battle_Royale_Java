@@ -5,7 +5,7 @@ import java.util.Random;
 
 import personajes.*;
 
-public class Tablero<asignarValor> {
+public class Tablero {
 	private int[][] tablero;
     private Personaje[] personajes;
 

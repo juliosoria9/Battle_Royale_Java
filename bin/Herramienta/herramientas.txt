@@ -64,12 +64,6 @@ Shuriken
 Rifle
 35
 3
-Cimitarra
-26
-2
-Derringer
-28
-2
 Maza
 18
 1
